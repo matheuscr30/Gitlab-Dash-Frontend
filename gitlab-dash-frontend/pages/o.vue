@@ -6,8 +6,8 @@
       app
       dark
       floating
-      persistent
-      mobile-break-point="991"
+      :temporary="$isMobile"
+      :stateless="!$isMobile"
       width="260"
     >
       <v-img src="/sidebar_image.jpg" height="100%">
@@ -20,7 +20,9 @@
               SSYS
             </v-list-tile-title>
           </v-list-tile>
+
           <v-divider class="mx-3 mb-1"></v-divider>
+
           <v-list-tile
             v-for="(item, index) in items"
             :key="index"
@@ -38,10 +40,32 @@
       </v-img>
     </v-navigation-drawer>
 
+    <v-toolbar
+      clipped-left
+      flat
+      light
+      height="55"
+      color="background"
+      :class="{ toolbarDesktop: !$isMobile }"
+    >
+      <v-toolbar-side-icon
+        v-if="$isMobile"
+        class="font-weight-thin"
+        @click.stop="drawerMenu = !drawerMenu"
+      />
+
+      <v-toolbar-title class="title font-weight-thin">
+        {{ toolbarTitle }}
+      </v-toolbar-title>
+    </v-toolbar>
+
     <v-content>
       <v-container fluid grid-list-md class="pa-0">
         <main class="content">
-          <nuxt-child />
+          <nuxt-child
+            :toolbarTitle="toolbarTitle"
+            @changedTitle="toolbarTitle = $event"
+          />
         </main>
       </v-container>
     </v-content>
@@ -70,10 +94,18 @@ export default {
           ref: '/o/devs/',
           title: 'Devs'
         }
-      ]
+      ],
+      toolbarTitle: 'Dashboard'
+    }
+  },
+  watch: {
+    $isMobile() {
+      this.drawerMenu = !this.$isMobile
     }
   },
   created() {
+    if (this.$isMobile) this.drawerMenu = false
+
     this.$router.push({ name: 'o-dashboard' })
   }
 }
@@ -82,5 +114,9 @@ export default {
 <style>
 .listTileDrawer .v-list__tile {
   border-radius: 6px;
+}
+
+.toolbarDesktop {
+  margin-left: 260px;
 }
 </style>

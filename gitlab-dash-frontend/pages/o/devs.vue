@@ -9,6 +9,9 @@ export default {
     return {
       title: 'SSYS - Devs'
     }
+  },
+  created() {
+    this.$emit('changedTitle', 'Devs')
   }
 }
 </script>

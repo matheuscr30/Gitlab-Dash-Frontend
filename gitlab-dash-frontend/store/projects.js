@@ -17,6 +17,7 @@ export const mutations = {
 export const actions = {
   async loadProjects({ commit }) {
     const response = await this.$axios.$get('projects/')
+    console.log(response)
     commit('SET_PROJECTS', response)
   },
   setProjects({ commit }, projects) {

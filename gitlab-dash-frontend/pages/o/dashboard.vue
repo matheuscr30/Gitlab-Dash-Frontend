@@ -1,17 +1,13 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout wrap>
-      <v-flex xs12>
-        <span class="title font-weight-thin">Dashboard</span>
-      </v-flex>
-
       <v-layout row wrap class="mt-4 ml-4">
         <v-flex xs12 sm6 md4 lg3>
           <stats-card
             color="green"
             icon="layers"
             title="Projects"
-            :value="$store.getters['projects/projects'].length"
+            :value="projects.length"
             sub-icon="calendar_today"
             sub-text="Last 24 Hours"
             offset="12"
@@ -25,7 +21,7 @@
             color="blue"
             icon="person"
             title="Devs"
-            :value="$store.getters['users/users'].length"
+            :value="users.length"
             offset="15"
             route="/o/devs/"
             :loading="loadingDevsCard"
@@ -81,8 +77,18 @@ export default {
       loadingIssuesCard: true
     }
   },
+  computed: {
+    users() {
+      return this.$store.getters['users/users']
+    },
+    projects() {
+      return this.$store.getters['projects/projects']
+    }
+  },
   created() {
-    if (this.$store.getters['projects/projects'].length === 0) {
+    this.$emit('changedTitle', 'Dashboard')
+
+    if (this.projects.length === 0) {
       this.$store.dispatch('projects/loadProjects').then(() => {
         this.loadingProjectsCard = false
       })
@@ -90,7 +96,7 @@ export default {
       this.loadingProjectsCard = false
     }
 
-    if (this.$store.getters['users/users'].length === 0) {
+    if (this.users.length === 0) {
       this.$store.dispatch('users/loadUsers').then(() => {
         this.loadingDevsCard = false
       })
