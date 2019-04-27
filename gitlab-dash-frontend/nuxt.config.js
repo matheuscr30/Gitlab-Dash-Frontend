@@ -1,8 +1,16 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
 
+let env
+if (process.env.NODE_ENV === 'production') {
+  env = require('./config/prod.env.js')
+} else {
+  env = require('./config/dev.env.js')
+}
+
 module.exports = {
   mode: 'universal',
+  env: env,
 
   /*
    ** Headers of the page
@@ -40,6 +48,7 @@ module.exports = {
    */
   plugins: [
     '@/plugins/vuetify',
+    '@/plugins/axios.js',
     '@/mixins/mixins.js',
     '@/plugins/vueXRouterSync.js'
   ],
@@ -56,7 +65,7 @@ module.exports = {
    ** Axios module configuration
    */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: env.ROOT_API
   },
 
   /*

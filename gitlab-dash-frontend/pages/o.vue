@@ -20,14 +20,14 @@
               SSYS
             </v-list-tile-title>
           </v-list-tile>
-          <v-divider class="mx-3"></v-divider>
+          <v-divider class="mx-3 mb-1"></v-divider>
           <v-list-tile
             v-for="(item, index) in items"
             :key="index"
             :to="item.ref"
             active-class="success"
             avatar
-            class="listTileDrawer white--text pa-3"
+            class="listTileDrawer white--text px-3 pb-1"
           >
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -59,6 +59,16 @@ export default {
           icon: 'dashboard',
           ref: '/o/dashboard/',
           title: 'Dashboard'
+        },
+        {
+          icon: 'layers',
+          ref: '/o/projects/',
+          title: 'Projects'
+        },
+        {
+          icon: 'person',
+          ref: '/o/devs/',
+          title: 'Devs'
         }
       ]
     }
