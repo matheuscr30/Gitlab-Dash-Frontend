@@ -39,7 +39,15 @@
         v-text="subText"
       />
       <v-spacer></v-spacer>
-      <v-btn class="btnSeeAll" flat small nuxt :to="route" :color="color">
+      <v-btn
+        v-if="route"
+        class="btnSeeAll"
+        flat
+        small
+        nuxt
+        :to="route"
+        :color="color"
+      >
         SEE ALL
       </v-btn>
     </template>

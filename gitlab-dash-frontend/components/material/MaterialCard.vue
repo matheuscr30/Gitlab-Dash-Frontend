@@ -22,6 +22,10 @@
       <slot v-else name="offset" />
     </offset>
 
+    <v-card-title>
+      <slot name="title" />
+    </v-card-title>
+
     <v-card-text>
       <slot />
     </v-card-text>

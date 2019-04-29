@@ -33,7 +33,7 @@
             color="red"
             icon="error_outline"
             title="Issues"
-            value="3500"
+            value="..."
             sub-icon="more"
             sub-text="Tracked from GitLab"
             offset="15"
@@ -43,13 +43,13 @@
 
         <v-flex xs12 sm6 md4 lg3>
           <stats-card
-            color="green"
-            icon="home"
+            color="orange darken-1"
+            icon="group"
             title="Groups"
-            value="$34,245"
-            sub-icon="calendar_today"
-            sub-text="Last 24 Hours"
+            :value="groups.length"
+            sub-text="Our Dev Groups"
             offset="15"
+            :loading="loadingGroupsCard"
           />
         </v-flex>
       </v-layout>
@@ -74,7 +74,8 @@ export default {
     return {
       loadingProjectsCard: true,
       loadingDevsCard: true,
-      loadingIssuesCard: true
+      loadingIssuesCard: true,
+      loadingGroupsCard: true
     }
   },
   computed: {
@@ -83,6 +84,9 @@ export default {
     },
     projects() {
       return this.$store.getters['projects/projects']
+    },
+    groups() {
+      return this.$store.getters['groups/groups']
     }
   },
   created() {
@@ -102,6 +106,14 @@ export default {
       })
     } else {
       this.loadingDevsCard = false
+    }
+
+    if (this.groups.length === 0) {
+      this.$store.dispatch('groups/loadGroups').then(() => {
+        this.loadingGroupsCard = false
+      })
+    } else {
+      this.loadingGroupsCard = false
     }
   }
 }

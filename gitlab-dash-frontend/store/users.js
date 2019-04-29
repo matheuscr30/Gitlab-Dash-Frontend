@@ -18,8 +18,5 @@ export const actions = {
   async loadUsers({ commit }) {
     const response = await this.$axios.$get('users/')
     commit('SET_USERS', response)
-  },
-  setUsers({ commit }, users) {
-    commit('SET_USERS', users)
   }
 }

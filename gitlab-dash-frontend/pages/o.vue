@@ -104,9 +104,8 @@ export default {
     }
   },
   created() {
+    if (this.$route.name === 'o') this.$router.push({ name: 'o-dashboard' })
     if (this.$isMobile) this.drawerMenu = false
-
-    this.$router.push({ name: 'o-dashboard' })
   }
 }
 </script>

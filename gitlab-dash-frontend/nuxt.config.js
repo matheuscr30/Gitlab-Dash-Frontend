@@ -50,7 +50,8 @@ module.exports = {
     '@/plugins/vuetify',
     '@/plugins/axios.js',
     '@/mixins/mixins.js',
-    '@/plugins/vueXRouterSync.js'
+    '@/plugins/vueXRouterSync.js',
+    { src: '@/plugins/vueChartist.js', ssr: false }
   ],
 
   /*
