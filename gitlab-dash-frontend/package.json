@@ -19,6 +19,7 @@
     "express": "^4.16.4",
     "nuxt": "^2.4.0",
     "vue-chartist": "^2.2.0",
+    "vue-fullscreen": "^2.1.5",
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1",
     "vuex-router-sync": "^5.0.0"

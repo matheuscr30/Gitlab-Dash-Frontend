@@ -51,7 +51,8 @@ module.exports = {
     '@/plugins/axios.js',
     '@/mixins/mixins.js',
     '@/plugins/vueXRouterSync.js',
-    { src: '@/plugins/vueChartist.js', ssr: false }
+    { src: '@/plugins/vueChartist.js', ssr: false },
+    { src: '@/plugins/vueFullscreen.js', ssr: false }
   ],
 
   /*

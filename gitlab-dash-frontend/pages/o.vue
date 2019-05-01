@@ -5,7 +5,7 @@
       v-model="drawerMenu"
       app
       dark
-      floating
+      :permanent="!$isMobile"
       :temporary="$isMobile"
       :stateless="!$isMobile"
       width="260"
@@ -40,14 +40,7 @@
       </v-img>
     </v-navigation-drawer>
 
-    <v-toolbar
-      clipped-left
-      flat
-      light
-      height="55"
-      color="background"
-      :class="{ toolbarDesktop: !$isMobile }"
-    >
+    <v-toolbar app fixed flat light height="55" color="background">
       <v-toolbar-side-icon
         v-if="$isMobile"
         class="font-weight-thin"
@@ -57,16 +50,33 @@
       <v-toolbar-title class="title font-weight-thin">
         {{ toolbarTitle }}
       </v-toolbar-title>
+
+      <v-spacer />
+
+      <v-tooltip bottom>
+        <v-btn slot="activator" icon @click="toggleFullscreen">
+          <v-icon>fullscreen</v-icon>
+        </v-btn>
+        <span>Fullscreen Mode</span>
+      </v-tooltip>
     </v-toolbar>
 
     <v-content>
       <v-container fluid grid-list-md class="pa-0">
-        <main class="content">
-          <nuxt-child
-            :toolbarTitle="toolbarTitle"
-            @changedTitle="toolbarTitle = $event"
-          />
-        </main>
+        <no-ssr>
+          <fullscreen
+            ref="fullscreen"
+            class="fullscreen"
+            @change="fullscreenChange"
+          >
+            <main class="content">
+              <nuxt-child
+                :toolbarTitle="toolbarTitle"
+                @changedTitle="toolbarTitle = $event"
+              />
+            </main>
+          </fullscreen>
+        </no-ssr>
       </v-container>
     </v-content>
   </v-app>
@@ -78,6 +88,7 @@ export default {
   data() {
     return {
       drawerMenu: true,
+      fullscreen: false,
       items: [
         {
           icon: 'dashboard',
@@ -103,9 +114,22 @@ export default {
       this.drawerMenu = !this.$isMobile
     }
   },
+  updated() {
+    console.log(this.$vuetify.breakpoint)
+  },
   created() {
     if (this.$route.name === 'o') this.$router.push({ name: 'o-dashboard' })
     if (this.$isMobile) this.drawerMenu = false
+
+    console.log(this.$vuetify.breakpoint)
+  },
+  methods: {
+    toggleFullscreen() {
+      this.$refs.fullscreen.toggle()
+    },
+    fullscreenChange(fullscreen) {
+      this.fullscreen = fullscreen
+    }
   }
 }
 </script>

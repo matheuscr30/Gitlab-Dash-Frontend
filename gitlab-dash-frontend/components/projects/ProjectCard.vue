@@ -32,7 +32,7 @@
           <span>{{ project.description }}</span>
         </v-flex>
 
-        <v-flex xs6>
+        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
           <v-avatar color="red" size="40">
             <v-icon dark>
               error_outline
@@ -54,9 +54,50 @@
               Fixed Issues
             </span>
           </span>
+
+          <v-fade-transition leave-absolute>
+            <v-layout v-if="!collapsed" row wrap class="mt-3 mb-2">
+              <v-flex xs8 sm9>
+                <v-card
+                  color="red"
+                  class="elevation-4 v-card--material__chart"
+                  dark
+                >
+                  <chartist
+                    :data="issuesChart.data"
+                    :options="issuesChart.options"
+                    :responsive-options="issuesChart.responsiveOptions"
+                    color="red"
+                    type="Bar"
+                  />
+                </v-card>
+              </v-flex>
+
+              <v-flex xs4 sm3 class="text-xs-center">
+                <v-btn-toggle
+                  v-model="issuesChart.choice"
+                  style="flex-direction: column"
+                  mandatory
+                >
+                  <v-btn flat value="day">
+                    Per day
+                  </v-btn>
+                  <v-btn flat value="week">
+                    Per week
+                  </v-btn>
+                  <v-btn flat value="month">
+                    Per month
+                  </v-btn>
+                  <v-btn flat value="dev">
+                    Per Dev
+                  </v-btn>
+                </v-btn-toggle>
+              </v-flex>
+            </v-layout>
+          </v-fade-transition>
         </v-flex>
 
-        <v-flex xs6>
+        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
           <v-avatar color="blue" size="40">
             <v-icon dark>
               person
@@ -78,6 +119,41 @@
               Members
             </span>
           </span>
+
+          <v-fade-transition leave-absolute>
+            <v-layout v-if="!collapsed" row wrap class="mt-3 mb-2">
+              <v-flex xs8 sm9>
+                <v-card
+                  color="blue"
+                  class="elevation-4 v-card--material__chart"
+                  dark
+                >
+                  <chartist
+                    :data="membersChart.data"
+                    :options="membersChart.options"
+                    :responsive-options="membersChart.responsiveOptions"
+                    color="blue"
+                    type="Line"
+                  />
+                </v-card>
+              </v-flex>
+
+              <v-flex xs4 sm3 class="text-xs-center">
+                <v-btn-toggle
+                  v-model="membersChart.choice"
+                  style="flex-direction: column"
+                  mandatory
+                >
+                  <v-btn flat value="commit">
+                    Per commit
+                  </v-btn>
+                  <v-btn flat value="fixedIssue">
+                    Per fixed issue
+                  </v-btn>
+                </v-btn-toggle>
+              </v-flex>
+            </v-layout>
+          </v-fade-transition>
         </v-flex>
 
         <v-flex xs6>
@@ -136,7 +212,13 @@
 
     <template slot="actions">
       <v-spacer />
-      <v-btn class="btnAction" flat small color="success">
+      <v-btn
+        class="btnAction"
+        flat
+        small
+        color="success"
+        @click="collapsed = !collapsed"
+      >
         MORE DETAILS
       </v-btn>
     </template>
@@ -200,6 +282,114 @@ export default {
         return []
       }
     }
+  },
+  data() {
+    return {
+      collapsed: true,
+      auxiliaryCharts: {
+        dayLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        weekLabels: ['1º Week', '2º Week', '3º Week', '4º Week'],
+        monthLabels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
+        ]
+      },
+      issuesChart: {
+        choice: 0,
+        data: {
+          labels: [
+            'Ja',
+            'Fe',
+            'Ma',
+            'Ap',
+            'Mai',
+            'Ju',
+            'Jul',
+            'Au',
+            'Se',
+            'Oc',
+            'No',
+            'De'
+          ],
+          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
+        },
+        options: {
+          axisX: {
+            showGrid: false
+          },
+          low: 0,
+          high: 1000,
+          chartPadding: {
+            top: 15,
+            right: 10,
+            bottom: 0,
+            left: 10
+          }
+        },
+        responsiveOptions: [
+          [
+            'screen and (max-width: 640px)',
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0]
+                }
+              }
+            }
+          ]
+        ]
+      },
+      membersChart: {
+        choice: 0
+      }
+    }
+  },
+  watch: {
+    collapsed() {
+      if (!this.collapsed) {
+        // this.configIssueCharts()
+        this.configMemberCharts()
+        this.configCommitCharts()
+        this.configBranchCharts()
+      }
+    },
+    'issuesChart.choice'() {},
+    'membersCharts.choice'() {},
+    'commitsCharts.choice'() {},
+    'branchesCharts.choice'() {}
+  },
+  methods: {
+    configIssueCharts() {
+      console.log('q')
+      console.log(this.issuesChart.choice)
+      if (this.issuesChart.choice === 0) {
+        this.issuesChart.data.labels = this.auxiliaryCharts.dayLabels
+
+        for (const issue in this.fixedIssues) {
+          console.log(issue)
+        }
+
+        this.issuesChart.data.series = [[]]
+      } else if (this.issuesChart.choice === 1) {
+        this.issuesChart.data.labels = this.auxiliaryCharts.weekLabels
+      } else if (this.issuesChart.choice === 2) {
+        this.issuesChart.data.labels = this.auxiliaryCharts.monthLabels
+      }
+    },
+    configMemberCharts() {},
+    configCommitCharts() {},
+    configBranchCharts() {}
   }
 }
 </script>
@@ -209,6 +399,32 @@ export default {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+
+  .v-card--material__chart {
+    .ct-label {
+      color: inherit;
+      opacity: 0.7;
+      font-size: 0.975rem;
+      font-weight: 100;
+    }
+
+    .ct-grid {
+      stroke: rgba(255, 255, 255, 0.2);
+    }
+
+    .ct-series-a .ct-point,
+    .ct-series-a .ct-line,
+    .ct-series-a .ct-bar,
+    .ct-series-a .ct-slice-donut {
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 10px;
+    }
+
+    .ct-series-a .ct-slice-pie,
+    .ct-series-a .ct-area {
+      fill: rgba(255, 255, 255, 0.4);
+    }
+  }
 
   .btnAction {
     padding-right: 15px;
