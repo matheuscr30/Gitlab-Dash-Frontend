@@ -16,7 +16,7 @@ export const mutations = {
 
 export const actions = {
   async loadGroups({ commit }) {
-    const response = await this.$axios.$get('groups/')
-    commit('SET_GROUPS', response)
+    const groups = await this.$axios.$get('groups/')
+    commit('SET_GROUPS', groups)
   }
 }

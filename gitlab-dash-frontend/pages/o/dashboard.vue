@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout wrap>
-      <v-layout row wrap class="mt-4 ml-4">
+      <v-layout row wrap class="mt-4 px-3">
         <v-flex xs12 sm6 md4 lg3>
           <stats-card
             color="green"
@@ -33,7 +33,7 @@
             color="red"
             icon="error_outline"
             title="Issues"
-            value="..."
+            :value="numberOfFixedIssues"
             sub-icon="more"
             sub-text="Tracked from GitLab"
             offset="15"
@@ -75,7 +75,8 @@ export default {
       loadingProjectsCard: true,
       loadingDevsCard: true,
       loadingIssuesCard: true,
-      loadingGroupsCard: true
+      loadingGroupsCard: true,
+      numberOfFixedIssues: 0
     }
   },
   computed: {
@@ -85,6 +86,9 @@ export default {
     projects() {
       return this.$store.getters['projects/projects']
     },
+    projectFixedIssues() {
+      return this.$store.getters['projects/projectFixedIssues']
+    },
     groups() {
       return this.$store.getters['groups/groups']
     }
@@ -92,13 +96,23 @@ export default {
   created() {
     this.$emit('changedTitle', 'Dashboard')
 
-    if (this.projects.length === 0) {
-      this.$store.dispatch('projects/loadProjects').then(() => {
-        this.loadingProjectsCard = false
-      })
-    } else {
+    const loadProjects = async () => {
+      if (this.projects.length === 0)
+        await this.$store.dispatch('projects/loadProjects')
+
       this.loadingProjectsCard = false
+
+      if (Object.entries(this.projectFixedIssues).length === 0)
+        await this.$store.dispatch('projects/loadAllFixedIssues')
+
+      for (let i = 0; i < this.projects.length; i++) {
+        const project = this.projects[i]
+        this.numberOfFixedIssues += this.projectFixedIssues[project.id].length
+      }
+
+      this.loadingIssuesCard = false
     }
+    loadProjects()
 
     if (this.users.length === 0) {
       this.$store.dispatch('users/loadUsers').then(() => {

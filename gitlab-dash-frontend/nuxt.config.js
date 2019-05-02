@@ -29,7 +29,14 @@ module.exports = {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css'
       }
+    ],
+    script: [
+      { src: 'https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js' }
     ]
   },
 

@@ -32,72 +32,7 @@
           <span>{{ project.description }}</span>
         </v-flex>
 
-        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
-          <v-avatar color="red" size="40">
-            <v-icon dark>
-              error_outline
-            </v-icon>
-          </v-avatar>
-
-          <span class="ml-2">
-            <v-progress-circular
-              v-if="loadingFixedIssues"
-              indeterminate
-              size="25"
-              color="red"
-            ></v-progress-circular>
-
-            <span v-else>
-              <span class="red--text subheading font-weight-bold pr-1">
-                {{ fixedIssues.length }}
-              </span>
-              Fixed Issues
-            </span>
-          </span>
-
-          <v-fade-transition leave-absolute>
-            <v-layout v-if="!collapsed" row wrap class="mt-3 mb-2">
-              <v-flex xs8 sm9>
-                <v-card
-                  color="red"
-                  class="elevation-4 v-card--material__chart"
-                  dark
-                >
-                  <chartist
-                    :data="issuesChart.data"
-                    :options="issuesChart.options"
-                    :responsive-options="issuesChart.responsiveOptions"
-                    color="red"
-                    type="Bar"
-                  />
-                </v-card>
-              </v-flex>
-
-              <v-flex xs4 sm3 class="text-xs-center">
-                <v-btn-toggle
-                  v-model="issuesChart.choice"
-                  style="flex-direction: column"
-                  mandatory
-                >
-                  <v-btn flat value="day">
-                    Per day
-                  </v-btn>
-                  <v-btn flat value="week">
-                    Per week
-                  </v-btn>
-                  <v-btn flat value="month">
-                    Per month
-                  </v-btn>
-                  <v-btn flat value="dev">
-                    Per Dev
-                  </v-btn>
-                </v-btn-toggle>
-              </v-flex>
-            </v-layout>
-          </v-fade-transition>
-        </v-flex>
-
-        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
+        <v-flex xs6>
           <v-avatar color="blue" size="40">
             <v-icon dark>
               person
@@ -117,67 +52,6 @@
                 {{ members.length }}
               </span>
               Members
-            </span>
-          </span>
-
-          <v-fade-transition leave-absolute>
-            <v-layout v-if="!collapsed" row wrap class="mt-3 mb-2">
-              <v-flex xs8 sm9>
-                <v-card
-                  color="blue"
-                  class="elevation-4 v-card--material__chart"
-                  dark
-                >
-                  <chartist
-                    :data="membersChart.data"
-                    :options="membersChart.options"
-                    :responsive-options="membersChart.responsiveOptions"
-                    color="blue"
-                    type="Line"
-                  />
-                </v-card>
-              </v-flex>
-
-              <v-flex xs4 sm3 class="text-xs-center">
-                <v-btn-toggle
-                  v-model="membersChart.choice"
-                  style="flex-direction: column"
-                  mandatory
-                >
-                  <v-btn flat value="commit">
-                    Per commit
-                  </v-btn>
-                  <v-btn flat value="fixedIssue">
-                    Per fixed issue
-                  </v-btn>
-                </v-btn-toggle>
-              </v-flex>
-            </v-layout>
-          </v-fade-transition>
-        </v-flex>
-
-        <v-flex xs6>
-          <v-avatar color="yellow darken-2" size="40">
-            <v-icon dark>
-              code
-            </v-icon>
-          </v-avatar>
-
-          <span class="ml-2">
-            <v-progress-circular
-              v-if="loadingFixedIssues"
-              indeterminate
-              size="25"
-              color="yellow darken-2"
-            ></v-progress-circular>
-
-            <span v-else>
-              <span
-                class="yellow--text text--darken-2 subheading font-weight-bold pr-1"
-              >
-                {{ commits.length }}
-              </span>
-              Commits
             </span>
           </span>
         </v-flex>
@@ -207,6 +81,144 @@
             </span>
           </span>
         </v-flex>
+
+        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
+          <v-avatar color="red" size="40">
+            <v-icon dark>
+              error_outline
+            </v-icon>
+          </v-avatar>
+
+          <span class="ml-2">
+            <v-progress-circular
+              v-if="loadingFixedIssues"
+              indeterminate
+              size="25"
+              color="red"
+            ></v-progress-circular>
+
+            <span v-else>
+              <span class="red--text subheading font-weight-bold pr-1">
+                {{ fixedIssues.length }}
+              </span>
+              Fixed Issues
+            </span>
+          </span>
+
+          <v-fade-transition leave-absolute>
+            <v-layout
+              v-if="!collapsed && fixedIssues.length !== 0"
+              row
+              wrap
+              class="mt-3 mb-2"
+            >
+              <v-flex xs8 sm10>
+                <v-card
+                  color="red"
+                  class="elevation-4 v-card--material__chart"
+                  dark
+                >
+                  <chartist
+                    :data="issuesChart.data"
+                    :options="issuesChart.options"
+                    :responsive-options="issuesChart.responsiveOptions"
+                    color="red"
+                    ratio=""
+                    type="Bar"
+                  />
+                </v-card>
+              </v-flex>
+
+              <v-flex xs4 sm2 class="text-xs-center">
+                <v-btn-toggle
+                  v-model="issuesChart.choice"
+                  style="flex-direction: column"
+                  mandatory
+                >
+                  <v-btn flat>
+                    Per hour
+                  </v-btn>
+                  <v-btn flat>
+                    Per day
+                  </v-btn>
+                  <v-btn flat>
+                    Per month
+                  </v-btn>
+                </v-btn-toggle>
+              </v-flex>
+            </v-layout>
+          </v-fade-transition>
+        </v-flex>
+
+        <v-flex shrink :class="{ xs6: collapsed, xs12: !collapsed }">
+          <v-avatar color="yellow darken-2" size="40">
+            <v-icon dark>
+              code
+            </v-icon>
+          </v-avatar>
+
+          <span class="ml-2">
+            <v-progress-circular
+              v-if="loadingFixedIssues"
+              indeterminate
+              size="25"
+              color="yellow darken-2"
+            ></v-progress-circular>
+
+            <span v-else>
+              <span
+                class="yellow--text text--darken-2 subheading font-weight-bold pr-1"
+              >
+                {{ commits.length }}
+              </span>
+              Commits
+            </span>
+          </span>
+
+          <v-fade-transition leave-absolute>
+            <v-layout
+              v-if="!collapsed && commits.length !== 0"
+              row
+              wrap
+              class="mt-3 mb-2"
+            >
+              <v-flex xs8 sm10>
+                <v-card
+                  color="yellow darken-2"
+                  class="elevation-4 v-card--material__chart"
+                  dark
+                >
+                  <chartist
+                    :data="commitsChart.data"
+                    :options="commitsChart.options"
+                    :responsive-options="commitsChart.responsiveOptions"
+                    color="yellow darken-2"
+                    ratio=""
+                    type="Bar"
+                  />
+                </v-card>
+              </v-flex>
+
+              <v-flex xs4 sm2 class="text-xs-center">
+                <v-btn-toggle
+                  v-model="commitsChart.choice"
+                  style="flex-direction: column"
+                  mandatory
+                >
+                  <v-btn flat>
+                    Per hour
+                  </v-btn>
+                  <v-btn flat>
+                    Per day
+                  </v-btn>
+                  <v-btn flat>
+                    Per month
+                  </v-btn>
+                </v-btn-toggle>
+              </v-flex>
+            </v-layout>
+          </v-fade-transition>
+        </v-flex>
       </v-layout>
     </div>
 
@@ -219,7 +231,8 @@
         color="success"
         @click="collapsed = !collapsed"
       >
-        MORE DETAILS
+        <span v-if="collapsed">MORE DETAILS</span>
+        <span v-else>LESS DETAILS</span>
       </v-btn>
     </template>
   </material-card>
@@ -287,8 +300,33 @@ export default {
     return {
       collapsed: true,
       auxiliaryCharts: {
-        dayLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        weekLabels: ['1º Week', '2º Week', '3º Week', '4º Week'],
+        hourLabels: [
+          '0',
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          '10',
+          '11',
+          '12',
+          '13',
+          '14',
+          '15',
+          '16',
+          '17',
+          '18',
+          '19',
+          '20',
+          '21',
+          '22',
+          '23'
+        ],
+        dayLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         monthLabels: [
           'Jan',
           'Feb',
@@ -307,33 +345,22 @@ export default {
       issuesChart: {
         choice: 0,
         data: {
-          labels: [
-            'Ja',
-            'Fe',
-            'Ma',
-            'Ap',
-            'Mai',
-            'Ju',
-            'Jul',
-            'Au',
-            'Se',
-            'Oc',
-            'No',
-            'De'
-          ],
-          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
+          labels: [],
+          series: []
         },
         options: {
           axisX: {
             showGrid: false
           },
           low: 0,
-          high: 1000,
+          high: 1,
+          height: 200,
+          onlyInteger: true,
           chartPadding: {
-            top: 15,
+            top: 25,
             right: 10,
             bottom: 0,
-            left: 10
+            left: 0
           }
         },
         responsiveOptions: [
@@ -350,46 +377,136 @@ export default {
           ]
         ]
       },
-      membersChart: {
-        choice: 0
+      commitsChart: {
+        choice: 0,
+        data: {
+          labels: [],
+          series: []
+        },
+        options: {
+          axisX: {
+            showGrid: false
+          },
+          low: 0,
+          high: 1,
+          height: 200,
+          onlyInteger: true,
+          chartPadding: {
+            top: 25,
+            right: 10,
+            bottom: 0,
+            left: 0
+          }
+        },
+        responsiveOptions: [
+          [
+            'screen and (max-width: 640px)',
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0]
+                }
+              }
+            }
+          ]
+        ]
       }
     }
   },
   watch: {
     collapsed() {
       if (!this.collapsed) {
-        // this.configIssueCharts()
-        this.configMemberCharts()
+        this.configIssueCharts()
         this.configCommitCharts()
-        this.configBranchCharts()
       }
     },
-    'issuesChart.choice'() {},
-    'membersCharts.choice'() {},
-    'commitsCharts.choice'() {},
-    'branchesCharts.choice'() {}
+    'issuesChart.choice'() {
+      this.configIssueCharts()
+    },
+    'commitsChart.choice'() {
+      this.configCommitCharts()
+    }
   },
   methods: {
     configIssueCharts() {
-      console.log('q')
-      console.log(this.issuesChart.choice)
-      if (this.issuesChart.choice === 0) {
-        this.issuesChart.data.labels = this.auxiliaryCharts.dayLabels
+      switch (this.issuesChart.choice) {
+        case 0:
+          const issuesPerHour = new Array(24).fill(0)
+          for (let i = 0; i < this.fixedIssues.length; i++) {
+            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            issuesPerHour[closedDate.getHours()] += 1
+          }
 
-        for (const issue in this.fixedIssues) {
-          console.log(issue)
-        }
+          this.issuesChart.data.labels = this.auxiliaryCharts.hourLabels
+          this.issuesChart.options.high = Math.max(...issuesPerHour)
+          this.issuesChart.data.series = [issuesPerHour]
+          break
 
-        this.issuesChart.data.series = [[]]
-      } else if (this.issuesChart.choice === 1) {
-        this.issuesChart.data.labels = this.auxiliaryCharts.weekLabels
-      } else if (this.issuesChart.choice === 2) {
-        this.issuesChart.data.labels = this.auxiliaryCharts.monthLabels
+        case 1:
+          const issuesPerDay = new Array(7).fill(0)
+          for (let i = 0; i < this.fixedIssues.length; i++) {
+            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            issuesPerDay[closedDate.getDay()] += 1
+          }
+
+          this.issuesChart.data.labels = this.auxiliaryCharts.dayLabels
+          this.issuesChart.options.high = Math.max(...issuesPerDay)
+          this.issuesChart.data.series = [issuesPerDay]
+          break
+
+        case 2:
+          const issuesPerMonth = new Array(12).fill(0)
+          for (let i = 0; i < this.fixedIssues.length; i++) {
+            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            issuesPerMonth[closedDate.getMonth() + 1] += 1
+          }
+
+          this.issuesChart.data.labels = this.auxiliaryCharts.monthLabels
+          this.issuesChart.options.high = Math.max(...issuesPerMonth)
+          this.issuesChart.data.series = [issuesPerMonth]
+          break
       }
     },
-    configMemberCharts() {},
-    configCommitCharts() {},
-    configBranchCharts() {}
+    configCommitCharts() {
+      switch (this.commitsChart.choice) {
+        case 0:
+          const commitsPerHour = new Array(24).fill(0)
+          for (let i = 0; i < this.commits.length; i++) {
+            const closedDate = new Date(this.commits[i].committed_date)
+            commitsPerHour[closedDate.getHours()] += 1
+          }
+
+          this.commitsChart.data.labels = this.auxiliaryCharts.hourLabels
+          this.commitsChart.options.high = Math.max(...commitsPerHour)
+          this.commitsChart.data.series = [commitsPerHour]
+          break
+
+        case 1:
+          const commitsPerDay = new Array(7).fill(0)
+          for (let i = 0; i < this.commits.length; i++) {
+            const closedDate = new Date(this.commits[i].committed_date)
+            commitsPerDay[closedDate.getDay()] += 1
+          }
+
+          this.commitsChart.data.labels = this.auxiliaryCharts.dayLabels
+          this.commitsChart.options.high = Math.max(...commitsPerDay)
+          this.commitsChart.data.series = [commitsPerDay]
+          break
+
+        case 2:
+          const commitsPerMonth = new Array(12).fill(0)
+          for (let i = 0; i < this.commits.length; i++) {
+            const closedDate = new Date(this.commits[i].committed_date)
+            commitsPerMonth[closedDate.getMonth() + 1] += 1
+          }
+
+          this.commitsChart.data.labels = this.auxiliaryCharts.monthLabels
+          this.commitsChart.options.high = Math.max(...commitsPerMonth)
+          this.commitsChart.data.series = [commitsPerMonth]
+          break
+      }
+    }
   }
 }
 </script>
@@ -417,7 +534,6 @@ export default {
     .ct-series-a .ct-bar,
     .ct-series-a .ct-slice-donut {
       stroke: rgba(255, 255, 255, 0.8);
-      stroke-width: 10px;
     }
 
     .ct-series-a .ct-slice-pie,

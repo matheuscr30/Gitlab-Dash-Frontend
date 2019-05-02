@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs11 offset-xs1 sm10 offset-sm1>
+  <v-flex xs11 sm10 offset-sm1 :class="{ 'pl-4': $isMobile }">
     <project-card
       :project="project"
       :loadingFixedIssues="loadingFixedIssues"

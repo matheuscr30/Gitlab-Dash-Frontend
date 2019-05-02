@@ -52,29 +52,73 @@ export const mutations = {
 
 export const actions = {
   async loadProjects({ commit }) {
-    const response = await this.$axios.$get('projects/')
-    commit('SET_PROJECTS', response)
+    const projects = await this.$axios.$get('projects/')
+    commit('SET_PROJECTS', projects)
+  },
+  async loadAllFixedIssues({ state, commit }) {
+    for (let i = 0; i < state.projects.length; i++) {
+      const projectId = state.projects[i].id
+      const fixedIssues = await this.$axios.$get(
+        `projects/${projectId}/issues?state=closed`
+      )
+      commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues })
+    }
   },
   async loadFixedIssues({ commit }, projectId) {
-    const response = await this.$axios.$get(
+    const fixedIssues = await this.$axios.$get(
       `projects/${projectId}/issues?state=closed`
     )
-    commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues: response })
+    commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues })
   },
-  async loadMembers({ commit }, projectId) {
-    const response = await this.$axios.$get(`projects/${projectId}/members/`)
-    commit('ADD_PROJECT_MEMBERS', { projectId, members: response })
+  async loadAllMembers({ state, commit, dispatch }) {
+    for (let i = 0; i < state.projects.length; i++) {
+      const projectId = state.projects[i].id
+      const members = await this.$axios.$get(`projects/${projectId}/members/`)
+      commit('ADD_PROJECT_MEMBERS', { projectId, members })
+
+      for (let j = 0; j < members.length; j++) {
+        dispatch(
+          'users/addUserProject',
+          { userId: members[j].id, project: state.projects[i] },
+          { root: true }
+        )
+      }
+    }
+  },
+  async loadMembers({ state, commit, dispatch }, projectId) {
+    const members = await this.$axios.$get(`projects/${projectId}/members/`)
+    commit('ADD_PROJECT_MEMBERS', { projectId, members })
+
+    for (let i = 0; i < members.length; i++) {
+      dispatch(
+        'users/addUserProject',
+        {
+          userId: members[i].id,
+          project: state.projects.find(project => project.id === projectId)
+        },
+        { root: true }
+      )
+    }
+  },
+  async loadAllCommits({ state, commit }) {
+    for (let i = 0; i < state.projects.length; i++) {
+      const projectId = state.projects[i].id
+      const commits = await this.$axios.$get(
+        `projects/${projectId}/repository/commits?all=true`
+      )
+      commit('ADD_PROJECT_COMMITS', { projectId, commits })
+    }
   },
   async loadCommits({ commit }, projectId) {
-    const response = await this.$axios.$get(
+    const commits = await this.$axios.$get(
       `projects/${projectId}/repository/commits?all=true`
     )
-    commit('ADD_PROJECT_COMMITS', { projectId, commits: response })
+    commit('ADD_PROJECT_COMMITS', { projectId, commits })
   },
   async loadBranches({ commit }, projectId) {
-    const response = await this.$axios.$get(
+    const branches = await this.$axios.$get(
       `projects/${projectId}/repository/branches/`
     )
-    commit('ADD_PROJECT_BRANCHES', { projectId, branches: response })
+    commit('ADD_PROJECT_BRANCHES', { projectId, branches })
   }
 }

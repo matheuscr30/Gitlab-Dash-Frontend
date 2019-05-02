@@ -114,14 +114,9 @@ export default {
       this.drawerMenu = !this.$isMobile
     }
   },
-  updated() {
-    console.log(this.$vuetify.breakpoint)
-  },
   created() {
     if (this.$route.name === 'o') this.$router.push({ name: 'o-dashboard' })
     if (this.$isMobile) this.drawerMenu = false
-
-    console.log(this.$vuetify.breakpoint)
   },
   methods: {
     toggleFullscreen() {
