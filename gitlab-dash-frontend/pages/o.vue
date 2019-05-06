@@ -63,26 +63,17 @@
 
     <v-content>
       <v-container fluid grid-list-md class="pa-0">
-        <no-ssr>
-          <fullscreen
-            ref="fullscreen"
-            class="fullscreen"
-            @change="fullscreenChange"
-          >
-            <main class="content">
-              <nuxt-child
-                :toolbarTitle="toolbarTitle"
-                @changedTitle="toolbarTitle = $event"
-              />
-            </main>
-          </fullscreen>
-        </no-ssr>
+        <main class="content">
+          <nuxt-child @changedTitle="toolbarTitle = $event" />
+        </main>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import { EventBus } from '@/mixins/modules/eventBus'
+
 export default {
   name: 'O',
   data() {
@@ -106,7 +97,10 @@ export default {
           title: 'Devs'
         }
       ],
-      toolbarTitle: 'Dashboard'
+      toolbarTitle: 'Dashboard',
+      actualPosition: 1,
+      statusScroll: 0,
+      heightScreen: 0
     }
   },
   watch: {
@@ -114,15 +108,23 @@ export default {
       this.drawerMenu = !this.$isMobile
     }
   },
+  async asyncData({ store }) {
+    await store.dispatch('requestToken')
+  },
   created() {
     if (this.$route.name === 'o') this.$router.push({ name: 'o-dashboard' })
     if (this.$isMobile) this.drawerMenu = false
   },
   methods: {
     toggleFullscreen() {
-      this.$refs.fullscreen.toggle()
+      this.$fullscreen.toggle(this.$el.querySelector('.content'), {
+        wrap: false,
+        callback: this.fullscreenChange
+      })
+      EventBus.$emit('openFullscreen')
     },
     fullscreenChange(fullscreen) {
+      if (!fullscreen) EventBus.$emit('closeFullscreen')
       this.fullscreen = fullscreen
     }
   }
@@ -136,5 +138,9 @@ export default {
 
 .toolbarDesktop {
   margin-left: 260px;
+}
+
+.fullscreen {
+  overflow-y: auto;
 }
 </style>

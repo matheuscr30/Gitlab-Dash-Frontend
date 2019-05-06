@@ -12,7 +12,9 @@
       dark
     >
       <v-avatar color="light-blue lighten-2">
-        <span class="white--text headline">{{ project.name.charAt(0) }}</span>
+        <span class="white--text headline">
+          {{ project.name.charAt(0).toUpperCase() }}
+        </span>
       </v-avatar>
     </v-card>
 
@@ -22,7 +24,7 @@
       </a>
       <br />
       <span class="grey--text font-weight-light">
-        {{ project.name_with_namespace }}
+        {{ project.nameWithNamespace }}
       </span>
     </div>
 
@@ -434,7 +436,9 @@ export default {
         case 0:
           const issuesPerHour = new Array(24).fill(0)
           for (let i = 0; i < this.fixedIssues.length; i++) {
-            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            const closedDate = new Date(
+              this.fixedIssues[i].closedAt.seconds * 1000
+            )
             issuesPerHour[closedDate.getHours()] += 1
           }
 
@@ -446,7 +450,9 @@ export default {
         case 1:
           const issuesPerDay = new Array(7).fill(0)
           for (let i = 0; i < this.fixedIssues.length; i++) {
-            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            const closedDate = new Date(
+              this.fixedIssues[i].closedAt.seconds * 1000
+            )
             issuesPerDay[closedDate.getDay()] += 1
           }
 
@@ -458,7 +464,9 @@ export default {
         case 2:
           const issuesPerMonth = new Array(12).fill(0)
           for (let i = 0; i < this.fixedIssues.length; i++) {
-            const closedDate = new Date(this.fixedIssues[i].closed_at)
+            const closedDate = new Date(
+              this.fixedIssues[i].closedAt.seconds * 1000
+            )
             issuesPerMonth[closedDate.getMonth() + 1] += 1
           }
 
@@ -473,7 +481,9 @@ export default {
         case 0:
           const commitsPerHour = new Array(24).fill(0)
           for (let i = 0; i < this.commits.length; i++) {
-            const closedDate = new Date(this.commits[i].committed_date)
+            const closedDate = new Date(
+              this.commits[i].committedDate.seconds * 1000
+            )
             commitsPerHour[closedDate.getHours()] += 1
           }
 
@@ -485,7 +495,9 @@ export default {
         case 1:
           const commitsPerDay = new Array(7).fill(0)
           for (let i = 0; i < this.commits.length; i++) {
-            const closedDate = new Date(this.commits[i].committed_date)
+            const closedDate = new Date(
+              this.commits[i].committedDate.seconds * 1000
+            )
             commitsPerDay[closedDate.getDay()] += 1
           }
 
@@ -495,9 +507,11 @@ export default {
           break
 
         case 2:
-          const commitsPerMonth = new Array(12).fill(0)
+          const commitsPerMonth = new Array(13).fill(0)
           for (let i = 0; i < this.commits.length; i++) {
-            const closedDate = new Date(this.commits[i].committed_date)
+            const closedDate = new Date(
+              this.commits[i].committedDate.seconds * 1000
+            )
             commitsPerMonth[closedDate.getMonth() + 1] += 1
           }
 

@@ -1,3 +1,5 @@
+const API = require('../proto/APIV1_pb')
+
 export const state = () => ({
   projects: [],
   projectFixedIssues: {},
@@ -52,73 +54,51 @@ export const mutations = {
 
 export const actions = {
   async loadProjects({ commit }) {
-    const projects = await this.$axios.$get('projects/')
+    const response = await this.$axios.$get('projects/', {
+      responseType: 'arraybuffer'
+    })
+    const projectListProto = API.ProjectList.deserializeBinary(response)
+    const projectListObject = projectListProto.toObject(API.ProjectList)
+    const projects = projectListObject.projectsList
     commit('SET_PROJECTS', projects)
   },
-  async loadAllFixedIssues({ state, commit }) {
-    for (let i = 0; i < state.projects.length; i++) {
-      const projectId = state.projects[i].id
-      const fixedIssues = await this.$axios.$get(
-        `projects/${projectId}/issues?state=closed`
-      )
-      commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues })
-    }
-  },
   async loadFixedIssues({ commit }, projectId) {
-    const fixedIssues = await this.$axios.$get(
-      `projects/${projectId}/issues?state=closed`
+    const response = await this.$axios.$get(
+      `projects/${projectId}/issues?state=closed`,
+      {
+        responseType: 'arraybuffer'
+      }
     )
+    const issueListProto = API.IssueList.deserializeBinary(response)
+    const issueListObject = issueListProto.toObject(API.IssueList)
+    const fixedIssues = issueListObject.issuesList
     commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues })
   },
-  async loadAllMembers({ state, commit, dispatch }) {
-    for (let i = 0; i < state.projects.length; i++) {
-      const projectId = state.projects[i].id
-      const members = await this.$axios.$get(`projects/${projectId}/members/`)
-      commit('ADD_PROJECT_MEMBERS', { projectId, members })
-
-      for (let j = 0; j < members.length; j++) {
-        dispatch(
-          'users/addUserProject',
-          { userId: members[j].id, project: state.projects[i] },
-          { root: true }
-        )
-      }
-    }
-  },
   async loadMembers({ state, commit, dispatch }, projectId) {
-    const members = await this.$axios.$get(`projects/${projectId}/members/`)
+    const response = await this.$axios.$get(`projects/${projectId}/members/`, {
+      responseType: 'arraybuffer'
+    })
+    const userListProto = API.UserList.deserializeBinary(response)
+    const userListObject = userListProto.toObject(API.UserList)
+    const members = userListObject.usersList
     commit('ADD_PROJECT_MEMBERS', { projectId, members })
-
-    for (let i = 0; i < members.length; i++) {
-      dispatch(
-        'users/addUserProject',
-        {
-          userId: members[i].id,
-          project: state.projects.find(project => project.id === projectId)
-        },
-        { root: true }
-      )
-    }
-  },
-  async loadAllCommits({ state, commit }) {
-    for (let i = 0; i < state.projects.length; i++) {
-      const projectId = state.projects[i].id
-      const commits = await this.$axios.$get(
-        `projects/${projectId}/repository/commits?all=true`
-      )
-      commit('ADD_PROJECT_COMMITS', { projectId, commits })
-    }
   },
   async loadCommits({ commit }, projectId) {
-    const commits = await this.$axios.$get(
-      `projects/${projectId}/repository/commits?all=true`
-    )
+    const response = await this.$axios.$get(`projects/${projectId}/commits/`, {
+      responseType: 'arraybuffer'
+    })
+    const commitListProto = API.CommitList.deserializeBinary(response)
+    const commitListObject = commitListProto.toObject(API.CommitList)
+    const commits = commitListObject.commitsList
     commit('ADD_PROJECT_COMMITS', { projectId, commits })
   },
   async loadBranches({ commit }, projectId) {
-    const branches = await this.$axios.$get(
-      `projects/${projectId}/repository/branches/`
-    )
+    const response = await this.$axios.$get(`projects/${projectId}/branches/`, {
+      responseType: 'arraybuffer'
+    })
+    const branchListProto = API.BranchList.deserializeBinary(response)
+    const branchListObject = branchListProto.toObject(API.BranchList)
+    const branches = branchListObject.branchesList
     commit('ADD_PROJECT_BRANCHES', { projectId, branches })
   }
 }

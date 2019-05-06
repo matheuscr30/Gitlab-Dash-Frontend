@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout wrap>
-      <v-layout row wrap class="mt-4 px-3">
+      <v-layout row wrap class="mt-4 px-3 containerTimeline">
         <v-flex xs12 sm6 md4 lg3>
           <stats-card
             color="green"
@@ -33,7 +33,7 @@
             color="red"
             icon="error_outline"
             title="Issues"
-            :value="numberOfFixedIssues"
+            :value="issues.length"
             sub-icon="more"
             sub-text="Tracked from GitLab"
             offset="15"
@@ -75,8 +75,7 @@ export default {
       loadingProjectsCard: true,
       loadingDevsCard: true,
       loadingIssuesCard: true,
-      loadingGroupsCard: true,
-      numberOfFixedIssues: 0
+      loadingGroupsCard: true
     }
   },
   computed: {
@@ -86,8 +85,8 @@ export default {
     projects() {
       return this.$store.getters['projects/projects']
     },
-    projectFixedIssues() {
-      return this.$store.getters['projects/projectFixedIssues']
+    issues() {
+      return this.$store.getters['issues/issues']
     },
     groups() {
       return this.$store.getters['groups/groups']
@@ -96,23 +95,21 @@ export default {
   created() {
     this.$emit('changedTitle', 'Dashboard')
 
-    const loadProjects = async () => {
-      if (this.projects.length === 0)
-        await this.$store.dispatch('projects/loadProjects')
-
+    if (this.projects.length === 0) {
+      this.$store.dispatch('projects/loadProjects').then(() => {
+        this.loadingProjectsCard = false
+      })
+    } else {
       this.loadingProjectsCard = false
+    }
 
-      if (Object.entries(this.projectFixedIssues).length === 0)
-        await this.$store.dispatch('projects/loadAllFixedIssues')
-
-      for (let i = 0; i < this.projects.length; i++) {
-        const project = this.projects[i]
-        this.numberOfFixedIssues += this.projectFixedIssues[project.id].length
-      }
-
+    if (this.issues.length === 0) {
+      this.$store.dispatch('issues/loadIssues').then(() => {
+        this.loadingIssuesCard = false
+      })
+    } else {
       this.loadingIssuesCard = false
     }
-    loadProjects()
 
     if (this.users.length === 0) {
       this.$store.dispatch('users/loadUsers').then(() => {
@@ -133,4 +130,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.containerTimeline {
+  div:last-child {
+    margin-bottom: 15px;
+  }
+}
+</style>

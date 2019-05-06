@@ -1,5 +1,8 @@
-export default function({ $axios }) {
+export default function({ $axios, store }) {
   $axios.onRequest(config => {
-    config.headers.common['PRIVATE-TOKEN'] = process.env.GITLAB_ACCESS_TOKEN
+    if (config.url.indexOf('o/token') === -1) {
+      config.headers.common.Authorization =
+        'Bearer ' + store.getters.accessToken
+    }
   })
 }

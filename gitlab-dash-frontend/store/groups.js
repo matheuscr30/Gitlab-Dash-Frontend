@@ -1,3 +1,5 @@
+const API = require('../proto/APIV1_pb')
+
 export const state = () => ({
   groups: []
 })
@@ -16,7 +18,12 @@ export const mutations = {
 
 export const actions = {
   async loadGroups({ commit }) {
-    const groups = await this.$axios.$get('groups/')
+    const response = await this.$axios.$get('groups/', {
+      responseType: 'arraybuffer'
+    })
+    const groupListProto = API.GroupList.deserializeBinary(response)
+    const groupListObject = groupListProto.toObject(API.GroupList)
+    const groups = groupListObject.groupsList
     commit('SET_GROUPS', groups)
   }
 }
