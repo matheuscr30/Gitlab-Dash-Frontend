@@ -13,21 +13,21 @@
             <div class="body-1 font-weight-medium">{{ user.name }}</div>
             <div>
               <span class="yellow--text text--darken-2 body-2 font-weight-bold">
-                {{ user.commitsList.length }}
+                {{ user.numberOfCommits }}
               </span>
               <span class="body-1">Commits</span>
             </div>
 
             <div>
               <span class="red--text body-2 font-weight-bold">
-                {{ user.issuesList.length }}
+                {{ user.numberOfIssues }}
               </span>
               <span class="body-1">Fixed Issues</span>
             </div>
 
             <div>
               <span class="purple--text text--darken-1 body-2 font-weight-bold">
-                {{ user.mergeRequestsList.length }}
+                {{ user.numberOfMergeRequests }}
               </span>
               <span class="body-1">Merge Requests</span>
             </div>
@@ -51,7 +51,7 @@
                 <span>{{ commit.message }}</span>
                 <br />
                 <span class="grey--text">
-                  {{ new Date(commit.authoredDate.seconds * 1000) | moment }}
+                  {{ new Date(commit.committedDate.seconds * 1000) | moment }}
                 </span>
               </v-flex>
             </v-layout>
@@ -76,7 +76,9 @@
                   <a :href="fixedIssue.webUrl" target="_blank">
                     #{{ fixedIssue.id }}
                   </a>
-                  {{ fixedIssue.title }}
+                  <span class="pl-1">
+                    {{ fixedIssue.title }}
+                  </span>
                 </span>
                 <br />
                 <span class="grey--text">
@@ -142,10 +144,8 @@ export default {
       type: Number
     }
   },
-  computed: {
-    projects() {
-      return this.$store.getters['projects/projects']
-    }
+  created() {
+    console.log(this.user)
   }
 }
 </script>

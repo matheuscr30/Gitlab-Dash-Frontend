@@ -57,9 +57,6 @@ export default {
   computed: {
     users() {
       return this.$store.getters['users/users']
-    },
-    projects() {
-      return this.$store.getters['projects/projects']
     }
   },
   async created() {
@@ -80,8 +77,6 @@ export default {
       this.timelineOption = 2
 
     if (this.users.length === 0) await this.$store.dispatch('users/loadUsers')
-    if (this.projects.length === 0)
-      await this.$store.dispatch('projects/loadProjects')
   },
   methods: {
     startScroll() {
