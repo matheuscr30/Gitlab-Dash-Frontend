@@ -2,39 +2,25 @@ syntax = 'proto3';
 import "google/protobuf/timestamp.proto";
 package GITLAB_DASH_API;
 
-message MergeRequest {
+message Project {
   int32 id = 1;
-  int32 project_id = 2;
-  string title = 3;
+  string name = 2;
+  string name_with_namespace = 3;
   string description = 4;
-  string state = 5;
-  int32 author_id = 6;
+  string default_branch = 5;
+  string visibility = 6;
   string web_url = 7;
-  google.protobuf.Timestamp merged_at = 8;
+  string avatar_url = 8;
   google.protobuf.Timestamp created_at = 9;
 }
 
-message MergeRequestList {
-  repeated MergeRequest merge_requests = 1;
-}
-
-message Commit {
-  string id = 1;
-  int32 project_id = 2;
-  string title = 3;
-  int32 committer_id = 4;
-  google.protobuf.Timestamp committed_date = 5;
-  string message = 6;
-  google.protobuf.Timestamp created_at = 7;
-}
-
-message CommitList {
-  repeated Commit commits = 1;
+message ProjectList {
+  repeated Project projects = 1;
 }
 
 message Issue {
   int32 id = 1;
-  int32 project_id = 2;
+  Project project = 2;
   string title = 3;
   string state = 4;
   string description = 5;
@@ -48,22 +34,36 @@ message IssueList {
   repeated Issue issues = 1;
 }
 
-message Project {
+message MergeRequest {
   int32 id = 1;
-  string name = 2;
-  string name_with_namespace = 3;
-  string description = 4;
-  string default_branch = 5;
-  string visibility = 6;
-  string web_url = 7;
-  string avatar_url = 8;
-  google.protobuf.Timestamp created_at = 9;
-  repeated Issue issues = 10;
-  repeated Commit commits = 11;
+  Project project = 2;
+  Issue issue = 3;
+  string title = 4;
+  string description = 5;
+  string state = 6;
+  int32 author_id = 7;
+  string web_url = 8;
+  google.protobuf.Timestamp merged_at = 9;
+  google.protobuf.Timestamp created_at = 10;
 }
 
-message ProjectList {
-  repeated Project projects = 1;
+message MergeRequestList {
+  repeated MergeRequest merge_requests = 1;
+}
+
+message Commit {
+  string id = 1;
+  Project project = 2;
+  Issue issue = 3;
+  string title = 4;
+  int32 committer_id = 5;
+  google.protobuf.Timestamp committed_date = 6;
+  string message = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message CommitList {
+  repeated Commit commits = 1;
 }
 
 message User {
@@ -76,10 +76,13 @@ message User {
   string web_url = 7;
   bool is_admin = 8;
   google.protobuf.Timestamp created_at = 9;
-  repeated Issue issues = 10;
-  repeated Commit commits = 11;
-  repeated MergeRequest merge_requests = 12;
-  repeated Project projects = 13;
+  int32 number_of_issues = 10;
+  repeated Issue issues = 11;
+  int32 number_of_commits = 12;
+  repeated Commit commits = 13;
+  int32 number_of_merge_requests = 14;
+  repeated MergeRequest merge_requests = 15;
+  repeated Project projects = 16;
 }
 
 message UserList {

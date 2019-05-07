@@ -13,21 +13,21 @@
             <div class="body-1 font-weight-medium">{{ user.name }}</div>
             <div>
               <span class="yellow--text text--darken-2 body-2 font-weight-bold">
-                {{ user.commitsList.length }}
+                {{ user.numberOfCommits }}
               </span>
               <span class="body-1">Commits</span>
             </div>
 
             <div>
               <span class="red--text body-2 font-weight-bold">
-                {{ user.issuesList.length }}
+                {{ user.numberOfIssues }}
               </span>
               <span class="body-1">Fixed Issues</span>
             </div>
 
             <div>
               <span class="purple--text text--darken-1 body-2 font-weight-bold">
-                {{ user.mergeRequestsList.length }}
+                {{ user.numberOfMergeRequests }}
               </span>
               <span class="body-1">Merge Requests</span>
             </div>
@@ -43,15 +43,43 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
-              <v-avatar color="yellow darken-2" size="32">
-                <v-icon dark>code</v-icon>
-              </v-avatar>
+              <div class="truncate-text--1 font-weight-medium">
+                {{ commit.project.name }}
+              </div>
+
+              <span>
+                <v-avatar
+                  v-if="commit.project.avatarUrl !== ''"
+                  size="32"
+                  color="grey lighten-4"
+                  class="text-xs-center"
+                >
+                  <img :src="commit.project.avatarUrl" alt="avatar" />
+                </v-avatar>
+
+                <v-avatar v-else color="yellow darken-2" size="32">
+                  <span class="white--text title">
+                    {{ commit.project.name.charAt(0).toUpperCase() }}
+                  </span>
+                </v-avatar>
+              </span>
 
               <v-flex>
-                <span>{{ commit.message }}</span>
-                <br />
-                <span class="grey--text">
-                  {{ new Date(commit.authoredDate.seconds * 1000) | moment }}
+                <span class="truncate-text--4">
+                  <span v-if="commit.issue">
+                    <a :href="commit.issue.webUrl" target="_blank">
+                      #{{ commit.issue.id }}
+                    </a>
+                    <span class="font-weight-medium">
+                      {{ commit.issue.title }}: &nbsp;
+                    </span>
+                  </span>
+
+                  {{ commit.message }}
+                </span>
+
+                <span class="grey--text pt-3">
+                  {{ new Date(commit.committedDate.seconds * 1000) | moment }}
                 </span>
               </v-flex>
             </v-layout>
@@ -67,19 +95,38 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
-              <v-avatar color="red" size="32">
-                <v-icon dark>error_outline</v-icon>
-              </v-avatar>
+              <div class="truncate-text--1 font-weight-medium">
+                {{ fixedIssue.project.name }}
+              </div>
+
+              <span>
+                <v-avatar
+                  v-if="fixedIssue.project.avatarUrl !== ''"
+                  size="32"
+                  color="grey lighten-4"
+                  class="text-xs-center"
+                >
+                  <img :src="fixedIssue.project.avatarUrl" alt="avatar" />
+                </v-avatar>
+
+                <v-avatar v-else color="red" size="32">
+                  <span class="white--text title">
+                    {{ fixedIssue.project.name.charAt(0).toUpperCase() }}
+                  </span>
+                </v-avatar>
+              </span>
 
               <v-flex>
-                <span>
+                <span class="truncate-text--4">
                   <a :href="fixedIssue.webUrl" target="_blank">
                     #{{ fixedIssue.id }}
                   </a>
-                  {{ fixedIssue.title }}
+                  <span class="pl-1">
+                    {{ fixedIssue.title }}
+                  </span>
                 </span>
-                <br />
-                <span class="grey--text">
+
+                <span class="grey--text pt-3">
                   {{ new Date(fixedIssue.closedAt.seconds * 1000) | moment }}
                 </span>
               </v-flex>
@@ -96,19 +143,36 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
-              <v-avatar color="purple darken-1" size="32">
-                <v-icon dark>merge_type</v-icon>
-              </v-avatar>
+              <div class="truncate-text--1 font-weight-medium">
+                {{ mergeRequest.project.name }}
+              </div>
+
+              <span>
+                <v-avatar
+                  v-if="mergeRequest.project.avatarUrl !== ''"
+                  size="32"
+                  color="grey lighten-4"
+                  class="text-xs-center"
+                >
+                  <img :src="mergeRequest.project.avatarUrl" alt="avatar" />
+                </v-avatar>
+
+                <v-avatar v-else color="purple darken-1" size="32">
+                  <span class="white--text title">
+                    {{ mergeRequest.project.name.charAt(0).toUpperCase() }}
+                  </span>
+                </v-avatar>
+              </span>
 
               <v-flex>
-                <span>
+                <span class="truncate-text--4">
                   <a :href="mergeRequest.webUrl" target="_blank">
                     #{{ mergeRequest.id }}
                   </a>
                   {{ mergeRequest.title }}
                 </span>
-                <br />
-                <span class="grey--text">
+
+                <span class="grey--text pt-3">
                   {{ new Date(mergeRequest.createdAt.seconds * 1000) | moment }}
                 </span>
               </v-flex>
@@ -142,10 +206,8 @@ export default {
       type: Number
     }
   },
-  computed: {
-    projects() {
-      return this.$store.getters['projects/projects']
-    }
+  created() {
+    console.log(this.user)
   }
 }
 </script>
@@ -167,6 +229,6 @@ export default {
 }
 
 .timeline-text {
-  margin-top: -18px !important;
+  margin-top: -38px !important;
 }
 </style>

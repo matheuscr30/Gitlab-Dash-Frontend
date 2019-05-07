@@ -37,12 +37,12 @@ goog.exportSymbol('proto.GITLAB_DASH_API.UserList', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.GITLAB_DASH_API.MergeRequest = function(opt_data) {
+proto.GITLAB_DASH_API.Project = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.GITLAB_DASH_API.MergeRequest, jspb.Message);
+goog.inherits(proto.GITLAB_DASH_API.Project, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.MergeRequest.displayName = 'proto.GITLAB_DASH_API.MergeRequest';
+  proto.GITLAB_DASH_API.Project.displayName = 'proto.GITLAB_DASH_API.Project';
 }
 
 
@@ -57,8 +57,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.MergeRequest.toObject(opt_includeInstance, this);
+proto.GITLAB_DASH_API.Project.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.Project.toObject(opt_includeInstance, this);
 };
 
 
@@ -67,20 +67,20 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.toObject = function(opt_includeInst
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.MergeRequest} msg The msg instance to transform.
+ * @param {!proto.GITLAB_DASH_API.Project} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.MergeRequest.toObject = function(includeInstance, msg) {
+proto.GITLAB_DASH_API.Project.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    projectId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    title: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    nameWithNamespace: jspb.Message.getFieldWithDefault(msg, 3, ""),
     description: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    state: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    authorId: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    defaultBranch: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    visibility: jspb.Message.getFieldWithDefault(msg, 6, ""),
     webUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    mergedAt: (f = msg.getMergedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    avatarUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
@@ -95,23 +95,23 @@ proto.GITLAB_DASH_API.MergeRequest.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ * @return {!proto.GITLAB_DASH_API.Project}
  */
-proto.GITLAB_DASH_API.MergeRequest.deserializeBinary = function(bytes) {
+proto.GITLAB_DASH_API.Project.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.MergeRequest;
-  return proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.GITLAB_DASH_API.Project;
+  return proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.MergeRequest} msg The message object to deserialize into.
+ * @param {!proto.GITLAB_DASH_API.Project} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ * @return {!proto.GITLAB_DASH_API.Project}
  */
-proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -123,12 +123,12 @@ proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader = function(msg, r
       msg.setId(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setProjectId(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setName(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setTitle(value);
+      msg.setNameWithNamespace(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
@@ -136,20 +136,19 @@ proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader = function(msg, r
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setState(value);
+      msg.setDefaultBranch(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setAuthorId(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setVisibility(value);
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setWebUrl(value);
       break;
     case 8:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setMergedAt(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAvatarUrl(value);
       break;
     case 9:
       var value = new google_protobuf_timestamp_pb.Timestamp;
@@ -169,9 +168,9 @@ proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader = function(msg, r
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.serializeBinary = function() {
+proto.GITLAB_DASH_API.Project.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter(this, writer);
+  proto.GITLAB_DASH_API.Project.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -179,11 +178,11 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.MergeRequest} message
+ * @param {!proto.GITLAB_DASH_API.Project} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, writer) {
+proto.GITLAB_DASH_API.Project.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getId();
   if (f !== 0) {
@@ -192,14 +191,14 @@ proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getProjectId();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getName();
+  if (f.length > 0) {
+    writer.writeString(
       2,
       f
     );
   }
-  f = message.getTitle();
+  f = message.getNameWithNamespace();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -213,16 +212,16 @@ proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getState();
+  f = message.getDefaultBranch();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = message.getAuthorId();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getVisibility();
+  if (f.length > 0) {
+    writer.writeString(
       6,
       f
     );
@@ -234,12 +233,11 @@ proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getMergedAt();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getAvatarUrl();
+  if (f.length > 0) {
+    writer.writeString(
       8,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+      f
     );
   }
   f = message.getCreatedAt();
@@ -257,43 +255,43 @@ proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, w
  * optional int32 id = 1;
  * @return {number}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getId = function() {
+proto.GITLAB_DASH_API.Project.prototype.getId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setId = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setId = function(value) {
   jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
 /**
- * optional int32 project_id = 2;
- * @return {number}
+ * optional string name = 2;
+ * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getProjectId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+proto.GITLAB_DASH_API.Project.prototype.getName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {number} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setProjectId = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+/** @param {string} value */
+proto.GITLAB_DASH_API.Project.prototype.setName = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string title = 3;
+ * optional string name_with_namespace = 3;
  * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getTitle = function() {
+proto.GITLAB_DASH_API.Project.prototype.getNameWithNamespace = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setTitle = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setNameWithNamespace = function(value) {
   jspb.Message.setProto3StringField(this, 3, value);
 };
 
@@ -302,44 +300,44 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.setTitle = function(value) {
  * optional string description = 4;
  * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getDescription = function() {
+proto.GITLAB_DASH_API.Project.prototype.getDescription = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setDescription = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setDescription = function(value) {
   jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional string state = 5;
+ * optional string default_branch = 5;
  * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getState = function() {
+proto.GITLAB_DASH_API.Project.prototype.getDefaultBranch = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setState = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setDefaultBranch = function(value) {
   jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional int32 author_id = 6;
- * @return {number}
+ * optional string visibility = 6;
+ * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getAuthorId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+proto.GITLAB_DASH_API.Project.prototype.getVisibility = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
-/** @param {number} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setAuthorId = function(value) {
-  jspb.Message.setProto3IntField(this, 6, value);
+/** @param {string} value */
+proto.GITLAB_DASH_API.Project.prototype.setVisibility = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
@@ -347,44 +345,29 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.setAuthorId = function(value) {
  * optional string web_url = 7;
  * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getWebUrl = function() {
+proto.GITLAB_DASH_API.Project.prototype.getWebUrl = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setWebUrl = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setWebUrl = function(value) {
   jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp merged_at = 8;
- * @return {?proto.google.protobuf.Timestamp}
+ * optional string avatar_url = 8;
+ * @return {string}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getMergedAt = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+proto.GITLAB_DASH_API.Project.prototype.getAvatarUrl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setMergedAt = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
-};
-
-
-proto.GITLAB_DASH_API.MergeRequest.prototype.clearMergedAt = function() {
-  this.setMergedAt(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.GITLAB_DASH_API.MergeRequest.prototype.hasMergedAt = function() {
-  return jspb.Message.getField(this, 8) != null;
+/** @param {string} value */
+proto.GITLAB_DASH_API.Project.prototype.setAvatarUrl = function(value) {
+  jspb.Message.setProto3StringField(this, 8, value);
 };
 
 
@@ -392,19 +375,19 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.hasMergedAt = function() {
  * optional google.protobuf.Timestamp created_at = 9;
  * @return {?proto.google.protobuf.Timestamp}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.getCreatedAt = function() {
+proto.GITLAB_DASH_API.Project.prototype.getCreatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
     jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
 };
 
 
 /** @param {?proto.google.protobuf.Timestamp|undefined} value */
-proto.GITLAB_DASH_API.MergeRequest.prototype.setCreatedAt = function(value) {
+proto.GITLAB_DASH_API.Project.prototype.setCreatedAt = function(value) {
   jspb.Message.setWrapperField(this, 9, value);
 };
 
 
-proto.GITLAB_DASH_API.MergeRequest.prototype.clearCreatedAt = function() {
+proto.GITLAB_DASH_API.Project.prototype.clearCreatedAt = function() {
   this.setCreatedAt(undefined);
 };
 
@@ -413,7 +396,7 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.clearCreatedAt = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.GITLAB_DASH_API.MergeRequest.prototype.hasCreatedAt = function() {
+proto.GITLAB_DASH_API.Project.prototype.hasCreatedAt = function() {
   return jspb.Message.getField(this, 9) != null;
 };
 
@@ -429,19 +412,19 @@ proto.GITLAB_DASH_API.MergeRequest.prototype.hasCreatedAt = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.GITLAB_DASH_API.MergeRequestList = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.MergeRequestList.repeatedFields_, null);
+proto.GITLAB_DASH_API.ProjectList = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.ProjectList.repeatedFields_, null);
 };
-goog.inherits(proto.GITLAB_DASH_API.MergeRequestList, jspb.Message);
+goog.inherits(proto.GITLAB_DASH_API.ProjectList, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.MergeRequestList.displayName = 'proto.GITLAB_DASH_API.MergeRequestList';
+  proto.GITLAB_DASH_API.ProjectList.displayName = 'proto.GITLAB_DASH_API.ProjectList';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.GITLAB_DASH_API.MergeRequestList.repeatedFields_ = [1];
+proto.GITLAB_DASH_API.ProjectList.repeatedFields_ = [1];
 
 
 
@@ -456,8 +439,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.GITLAB_DASH_API.MergeRequestList.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.MergeRequestList.toObject(opt_includeInstance, this);
+proto.GITLAB_DASH_API.ProjectList.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.ProjectList.toObject(opt_includeInstance, this);
 };
 
 
@@ -466,14 +449,14 @@ proto.GITLAB_DASH_API.MergeRequestList.prototype.toObject = function(opt_include
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.MergeRequestList} msg The msg instance to transform.
+ * @param {!proto.GITLAB_DASH_API.ProjectList} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.MergeRequestList.toObject = function(includeInstance, msg) {
+proto.GITLAB_DASH_API.ProjectList.toObject = function(includeInstance, msg) {
   var f, obj = {
-    mergeRequestsList: jspb.Message.toObjectList(msg.getMergeRequestsList(),
-    proto.GITLAB_DASH_API.MergeRequest.toObject, includeInstance)
+    projectsList: jspb.Message.toObjectList(msg.getProjectsList(),
+    proto.GITLAB_DASH_API.Project.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -487,23 +470,23 @@ proto.GITLAB_DASH_API.MergeRequestList.toObject = function(includeInstance, msg)
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.MergeRequestList}
+ * @return {!proto.GITLAB_DASH_API.ProjectList}
  */
-proto.GITLAB_DASH_API.MergeRequestList.deserializeBinary = function(bytes) {
+proto.GITLAB_DASH_API.ProjectList.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.MergeRequestList;
-  return proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.GITLAB_DASH_API.ProjectList;
+  return proto.GITLAB_DASH_API.ProjectList.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.MergeRequestList} msg The message object to deserialize into.
+ * @param {!proto.GITLAB_DASH_API.ProjectList} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.MergeRequestList}
+ * @return {!proto.GITLAB_DASH_API.ProjectList}
  */
-proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader = function(msg, reader) {
+proto.GITLAB_DASH_API.ProjectList.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -511,9 +494,9 @@ proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader = function(ms
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.GITLAB_DASH_API.MergeRequest;
-      reader.readMessage(value,proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader);
-      msg.addMergeRequests(value);
+      var value = new proto.GITLAB_DASH_API.Project;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
+      msg.addProjects(value);
       break;
     default:
       reader.skipField();
@@ -528,9 +511,9 @@ proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader = function(ms
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.GITLAB_DASH_API.MergeRequestList.prototype.serializeBinary = function() {
+proto.GITLAB_DASH_API.ProjectList.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.MergeRequestList.serializeBinaryToWriter(this, writer);
+  proto.GITLAB_DASH_API.ProjectList.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -538,557 +521,51 @@ proto.GITLAB_DASH_API.MergeRequestList.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.MergeRequestList} message
+ * @param {!proto.GITLAB_DASH_API.ProjectList} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.MergeRequestList.serializeBinaryToWriter = function(message, writer) {
+proto.GITLAB_DASH_API.ProjectList.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getMergeRequestsList();
+  f = message.getProjectsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter
+      proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * repeated MergeRequest merge_requests = 1;
- * @return {!Array<!proto.GITLAB_DASH_API.MergeRequest>}
+ * repeated Project projects = 1;
+ * @return {!Array<!proto.GITLAB_DASH_API.Project>}
  */
-proto.GITLAB_DASH_API.MergeRequestList.prototype.getMergeRequestsList = function() {
-  return /** @type{!Array<!proto.GITLAB_DASH_API.MergeRequest>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.MergeRequest, 1));
+proto.GITLAB_DASH_API.ProjectList.prototype.getProjectsList = function() {
+  return /** @type{!Array<!proto.GITLAB_DASH_API.Project>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Project, 1));
 };
 
 
-/** @param {!Array<!proto.GITLAB_DASH_API.MergeRequest>} value */
-proto.GITLAB_DASH_API.MergeRequestList.prototype.setMergeRequestsList = function(value) {
+/** @param {!Array<!proto.GITLAB_DASH_API.Project>} value */
+proto.GITLAB_DASH_API.ProjectList.prototype.setProjectsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.GITLAB_DASH_API.MergeRequest=} opt_value
+ * @param {!proto.GITLAB_DASH_API.Project=} opt_value
  * @param {number=} opt_index
- * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ * @return {!proto.GITLAB_DASH_API.Project}
  */
-proto.GITLAB_DASH_API.MergeRequestList.prototype.addMergeRequests = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.MergeRequest, opt_index);
+proto.GITLAB_DASH_API.ProjectList.prototype.addProjects = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.Project, opt_index);
 };
 
 
-proto.GITLAB_DASH_API.MergeRequestList.prototype.clearMergeRequestsList = function() {
-  this.setMergeRequestsList([]);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.GITLAB_DASH_API.Commit = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.GITLAB_DASH_API.Commit, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.Commit.displayName = 'proto.GITLAB_DASH_API.Commit';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.GITLAB_DASH_API.Commit.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.Commit.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.Commit} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.Commit.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    projectId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    title: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    committerId: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    committedDate: (f = msg.getCommittedDate()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    message: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.Commit}
- */
-proto.GITLAB_DASH_API.Commit.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.Commit;
-  return proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.Commit} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.Commit}
- */
-proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setProjectId(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setTitle(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCommitterId(value);
-      break;
-    case 5:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setCommittedDate(value);
-      break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setMessage(value);
-      break;
-    case 7:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.GITLAB_DASH_API.Commit.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.Commit} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getProjectId();
-  if (f !== 0) {
-    writer.writeInt32(
-      2,
-      f
-    );
-  }
-  f = message.getTitle();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getCommitterId();
-  if (f !== 0) {
-    writer.writeInt32(
-      4,
-      f
-    );
-  }
-  f = message.getCommittedDate();
-  if (f != null) {
-    writer.writeMessage(
-      5,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getMessage();
-  if (f.length > 0) {
-    writer.writeString(
-      6,
-      f
-    );
-  }
-  f = message.getCreatedAt();
-  if (f != null) {
-    writer.writeMessage(
-      7,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Commit.prototype.setId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional int32 project_id = 2;
- * @return {number}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getProjectId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.GITLAB_DASH_API.Commit.prototype.setProjectId = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
-};
-
-
-/**
- * optional string title = 3;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getTitle = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Commit.prototype.setTitle = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional int32 committer_id = 4;
- * @return {number}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getCommitterId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.GITLAB_DASH_API.Commit.prototype.setCommitterId = function(value) {
-  jspb.Message.setProto3IntField(this, 4, value);
-};
-
-
-/**
- * optional google.protobuf.Timestamp committed_date = 5;
- * @return {?proto.google.protobuf.Timestamp}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getCommittedDate = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
-};
-
-
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
-proto.GITLAB_DASH_API.Commit.prototype.setCommittedDate = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
-};
-
-
-proto.GITLAB_DASH_API.Commit.prototype.clearCommittedDate = function() {
-  this.setCommittedDate(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.GITLAB_DASH_API.Commit.prototype.hasCommittedDate = function() {
-  return jspb.Message.getField(this, 5) != null;
-};
-
-
-/**
- * optional string message = 6;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getMessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Commit.prototype.setMessage = function(value) {
-  jspb.Message.setProto3StringField(this, 6, value);
-};
-
-
-/**
- * optional google.protobuf.Timestamp created_at = 7;
- * @return {?proto.google.protobuf.Timestamp}
- */
-proto.GITLAB_DASH_API.Commit.prototype.getCreatedAt = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
-};
-
-
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
-proto.GITLAB_DASH_API.Commit.prototype.setCreatedAt = function(value) {
-  jspb.Message.setWrapperField(this, 7, value);
-};
-
-
-proto.GITLAB_DASH_API.Commit.prototype.clearCreatedAt = function() {
-  this.setCreatedAt(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.GITLAB_DASH_API.Commit.prototype.hasCreatedAt = function() {
-  return jspb.Message.getField(this, 7) != null;
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.GITLAB_DASH_API.CommitList = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.CommitList.repeatedFields_, null);
-};
-goog.inherits(proto.GITLAB_DASH_API.CommitList, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.CommitList.displayName = 'proto.GITLAB_DASH_API.CommitList';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.GITLAB_DASH_API.CommitList.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.GITLAB_DASH_API.CommitList.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.CommitList.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.CommitList} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.CommitList.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    commitsList: jspb.Message.toObjectList(msg.getCommitsList(),
-    proto.GITLAB_DASH_API.Commit.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.CommitList}
- */
-proto.GITLAB_DASH_API.CommitList.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.CommitList;
-  return proto.GITLAB_DASH_API.CommitList.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.CommitList} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.CommitList}
- */
-proto.GITLAB_DASH_API.CommitList.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.GITLAB_DASH_API.Commit;
-      reader.readMessage(value,proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader);
-      msg.addCommits(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.GITLAB_DASH_API.CommitList.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.CommitList.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.CommitList} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.CommitList.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCommitsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated Commit commits = 1;
- * @return {!Array<!proto.GITLAB_DASH_API.Commit>}
- */
-proto.GITLAB_DASH_API.CommitList.prototype.getCommitsList = function() {
-  return /** @type{!Array<!proto.GITLAB_DASH_API.Commit>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Commit, 1));
-};
-
-
-/** @param {!Array<!proto.GITLAB_DASH_API.Commit>} value */
-proto.GITLAB_DASH_API.CommitList.prototype.setCommitsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.GITLAB_DASH_API.Commit=} opt_value
- * @param {number=} opt_index
- * @return {!proto.GITLAB_DASH_API.Commit}
- */
-proto.GITLAB_DASH_API.CommitList.prototype.addCommits = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.Commit, opt_index);
-};
-
-
-proto.GITLAB_DASH_API.CommitList.prototype.clearCommitsList = function() {
-  this.setCommitsList([]);
+proto.GITLAB_DASH_API.ProjectList.prototype.clearProjectsList = function() {
+  this.setProjectsList([]);
 };
 
 
@@ -1140,7 +617,7 @@ proto.GITLAB_DASH_API.Issue.prototype.toObject = function(opt_includeInstance) {
 proto.GITLAB_DASH_API.Issue.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    projectId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    project: (f = msg.getProject()) && proto.GITLAB_DASH_API.Project.toObject(includeInstance, f),
     title: jspb.Message.getFieldWithDefault(msg, 3, ""),
     state: jspb.Message.getFieldWithDefault(msg, 4, ""),
     description: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -1189,8 +666,9 @@ proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader = function(msg, reader) 
       msg.setId(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setProjectId(value);
+      var value = new proto.GITLAB_DASH_API.Project;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
+      msg.setProject(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -1258,11 +736,12 @@ proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getProjectId();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getProject();
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
     );
   }
   f = message.getTitle();
@@ -1335,17 +814,32 @@ proto.GITLAB_DASH_API.Issue.prototype.setId = function(value) {
 
 
 /**
- * optional int32 project_id = 2;
- * @return {number}
+ * optional Project project = 2;
+ * @return {?proto.GITLAB_DASH_API.Project}
  */
-proto.GITLAB_DASH_API.Issue.prototype.getProjectId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+proto.GITLAB_DASH_API.Issue.prototype.getProject = function() {
+  return /** @type{?proto.GITLAB_DASH_API.Project} */ (
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Project, 2));
 };
 
 
-/** @param {number} value */
-proto.GITLAB_DASH_API.Issue.prototype.setProjectId = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+/** @param {?proto.GITLAB_DASH_API.Project|undefined} value */
+proto.GITLAB_DASH_API.Issue.prototype.setProject = function(value) {
+  jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+proto.GITLAB_DASH_API.Issue.prototype.clearProject = function() {
+  this.setProject(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.Issue.prototype.hasProject = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
@@ -1663,19 +1157,472 @@ proto.GITLAB_DASH_API.IssueList.prototype.clearIssuesList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.GITLAB_DASH_API.Project = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.Project.repeatedFields_, null);
+proto.GITLAB_DASH_API.MergeRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.GITLAB_DASH_API.Project, jspb.Message);
+goog.inherits(proto.GITLAB_DASH_API.MergeRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.Project.displayName = 'proto.GITLAB_DASH_API.Project';
+  proto.GITLAB_DASH_API.MergeRequest.displayName = 'proto.GITLAB_DASH_API.MergeRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.MergeRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.GITLAB_DASH_API.MergeRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.MergeRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    project: (f = msg.getProject()) && proto.GITLAB_DASH_API.Project.toObject(includeInstance, f),
+    issue: (f = msg.getIssue()) && proto.GITLAB_DASH_API.Issue.toObject(includeInstance, f),
+    title: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    state: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    authorId: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    webUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    mergedAt: (f = msg.getMergedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ */
+proto.GITLAB_DASH_API.MergeRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.GITLAB_DASH_API.MergeRequest;
+  return proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.GITLAB_DASH_API.MergeRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ */
+proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new proto.GITLAB_DASH_API.Project;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
+      msg.setProject(value);
+      break;
+    case 3:
+      var value = new proto.GITLAB_DASH_API.Issue;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader);
+      msg.setIssue(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTitle(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDescription(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setState(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setAuthorId(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setWebUrl(value);
+      break;
+    case 9:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setMergedAt(value);
+      break;
+    case 10:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.GITLAB_DASH_API.MergeRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getProject();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
+    );
+  }
+  f = message.getIssue();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter
+    );
+  }
+  f = message.getTitle();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getDescription();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+  f = message.getState();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+  f = message.getAuthorId();
+  if (f !== 0) {
+    writer.writeInt32(
+      7,
+      f
+    );
+  }
+  f = message.getWebUrl();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getMergedAt();
+  if (f != null) {
+    writer.writeMessage(
+      9,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      10,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional int32 id = 1;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setId = function(value) {
+  jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional Project project = 2;
+ * @return {?proto.GITLAB_DASH_API.Project}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getProject = function() {
+  return /** @type{?proto.GITLAB_DASH_API.Project} */ (
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Project, 2));
+};
+
+
+/** @param {?proto.GITLAB_DASH_API.Project|undefined} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setProject = function(value) {
+  jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+proto.GITLAB_DASH_API.MergeRequest.prototype.clearProject = function() {
+  this.setProject(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.hasProject = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional Issue issue = 3;
+ * @return {?proto.GITLAB_DASH_API.Issue}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getIssue = function() {
+  return /** @type{?proto.GITLAB_DASH_API.Issue} */ (
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Issue, 3));
+};
+
+
+/** @param {?proto.GITLAB_DASH_API.Issue|undefined} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setIssue = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.GITLAB_DASH_API.MergeRequest.prototype.clearIssue = function() {
+  this.setIssue(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.hasIssue = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional string title = 4;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getTitle = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setTitle = function(value) {
+  jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string description = 5;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getDescription = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setDescription = function(value) {
+  jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional string state = 6;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getState = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setState = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional int32 author_id = 7;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getAuthorId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setAuthorId = function(value) {
+  jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional string web_url = 8;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getWebUrl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setWebUrl = function(value) {
+  jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp merged_at = 9;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getMergedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+};
+
+
+/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setMergedAt = function(value) {
+  jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+proto.GITLAB_DASH_API.MergeRequest.prototype.clearMergedAt = function() {
+  this.setMergedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.hasMergedAt = function() {
+  return jspb.Message.getField(this, 9) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 10;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 10));
+};
+
+
+/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+proto.GITLAB_DASH_API.MergeRequest.prototype.setCreatedAt = function(value) {
+  jspb.Message.setWrapperField(this, 10, value);
+};
+
+
+proto.GITLAB_DASH_API.MergeRequest.prototype.clearCreatedAt = function() {
+  this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.MergeRequest.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 10) != null;
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.GITLAB_DASH_API.MergeRequestList = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.MergeRequestList.repeatedFields_, null);
+};
+goog.inherits(proto.GITLAB_DASH_API.MergeRequestList, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.GITLAB_DASH_API.MergeRequestList.displayName = 'proto.GITLAB_DASH_API.MergeRequestList';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.GITLAB_DASH_API.Project.repeatedFields_ = [10,11];
+proto.GITLAB_DASH_API.MergeRequestList.repeatedFields_ = [1];
 
 
 
@@ -1690,8 +1637,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.GITLAB_DASH_API.Project.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.Project.toObject(opt_includeInstance, this);
+proto.GITLAB_DASH_API.MergeRequestList.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.MergeRequestList.toObject(opt_includeInstance, this);
 };
 
 
@@ -1700,23 +1647,579 @@ proto.GITLAB_DASH_API.Project.prototype.toObject = function(opt_includeInstance)
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.Project} msg The msg instance to transform.
+ * @param {!proto.GITLAB_DASH_API.MergeRequestList} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.Project.toObject = function(includeInstance, msg) {
+proto.GITLAB_DASH_API.MergeRequestList.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    nameWithNamespace: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    defaultBranch: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    visibility: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    webUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    avatarUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    issuesList: jspb.Message.toObjectList(msg.getIssuesList(),
-    proto.GITLAB_DASH_API.Issue.toObject, includeInstance),
+    mergeRequestsList: jspb.Message.toObjectList(msg.getMergeRequestsList(),
+    proto.GITLAB_DASH_API.MergeRequest.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.GITLAB_DASH_API.MergeRequestList}
+ */
+proto.GITLAB_DASH_API.MergeRequestList.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.GITLAB_DASH_API.MergeRequestList;
+  return proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.GITLAB_DASH_API.MergeRequestList} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.GITLAB_DASH_API.MergeRequestList}
+ */
+proto.GITLAB_DASH_API.MergeRequestList.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.GITLAB_DASH_API.MergeRequest;
+      reader.readMessage(value,proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader);
+      msg.addMergeRequests(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.GITLAB_DASH_API.MergeRequestList.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.GITLAB_DASH_API.MergeRequestList.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.GITLAB_DASH_API.MergeRequestList} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.MergeRequestList.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getMergeRequestsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated MergeRequest merge_requests = 1;
+ * @return {!Array<!proto.GITLAB_DASH_API.MergeRequest>}
+ */
+proto.GITLAB_DASH_API.MergeRequestList.prototype.getMergeRequestsList = function() {
+  return /** @type{!Array<!proto.GITLAB_DASH_API.MergeRequest>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.MergeRequest, 1));
+};
+
+
+/** @param {!Array<!proto.GITLAB_DASH_API.MergeRequest>} value */
+proto.GITLAB_DASH_API.MergeRequestList.prototype.setMergeRequestsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.GITLAB_DASH_API.MergeRequest=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.GITLAB_DASH_API.MergeRequest}
+ */
+proto.GITLAB_DASH_API.MergeRequestList.prototype.addMergeRequests = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.MergeRequest, opt_index);
+};
+
+
+proto.GITLAB_DASH_API.MergeRequestList.prototype.clearMergeRequestsList = function() {
+  this.setMergeRequestsList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.GITLAB_DASH_API.Commit = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.GITLAB_DASH_API.Commit, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.GITLAB_DASH_API.Commit.displayName = 'proto.GITLAB_DASH_API.Commit';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.Commit.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.GITLAB_DASH_API.Commit} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.Commit.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    project: (f = msg.getProject()) && proto.GITLAB_DASH_API.Project.toObject(includeInstance, f),
+    issue: (f = msg.getIssue()) && proto.GITLAB_DASH_API.Issue.toObject(includeInstance, f),
+    title: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    committerId: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    committedDate: (f = msg.getCommittedDate()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    message: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.GITLAB_DASH_API.Commit}
+ */
+proto.GITLAB_DASH_API.Commit.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.GITLAB_DASH_API.Commit;
+  return proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.GITLAB_DASH_API.Commit} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.GITLAB_DASH_API.Commit}
+ */
+proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = new proto.GITLAB_DASH_API.Project;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
+      msg.setProject(value);
+      break;
+    case 3:
+      var value = new proto.GITLAB_DASH_API.Issue;
+      reader.readMessage(value,proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader);
+      msg.setIssue(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTitle(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCommitterId(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCommittedDate(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMessage(value);
+      break;
+    case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.GITLAB_DASH_API.Commit} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getProject();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
+    );
+  }
+  f = message.getIssue();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter
+    );
+  }
+  f = message.getTitle();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getCommitterId();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
+      f
+    );
+  }
+  f = message.getCommittedDate();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getMessage();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.Commit.prototype.setId = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional Project project = 2;
+ * @return {?proto.GITLAB_DASH_API.Project}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getProject = function() {
+  return /** @type{?proto.GITLAB_DASH_API.Project} */ (
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Project, 2));
+};
+
+
+/** @param {?proto.GITLAB_DASH_API.Project|undefined} value */
+proto.GITLAB_DASH_API.Commit.prototype.setProject = function(value) {
+  jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+proto.GITLAB_DASH_API.Commit.prototype.clearProject = function() {
+  this.setProject(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.hasProject = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional Issue issue = 3;
+ * @return {?proto.GITLAB_DASH_API.Issue}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getIssue = function() {
+  return /** @type{?proto.GITLAB_DASH_API.Issue} */ (
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Issue, 3));
+};
+
+
+/** @param {?proto.GITLAB_DASH_API.Issue|undefined} value */
+proto.GITLAB_DASH_API.Commit.prototype.setIssue = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.GITLAB_DASH_API.Commit.prototype.clearIssue = function() {
+  this.setIssue(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.hasIssue = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional string title = 4;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getTitle = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.Commit.prototype.setTitle = function(value) {
+  jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional int32 committer_id = 5;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getCommitterId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.Commit.prototype.setCommitterId = function(value) {
+  jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp committed_date = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getCommittedDate = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+proto.GITLAB_DASH_API.Commit.prototype.setCommittedDate = function(value) {
+  jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+proto.GITLAB_DASH_API.Commit.prototype.clearCommittedDate = function() {
+  this.setCommittedDate(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.hasCommittedDate = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional string message = 7;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getMessage = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.Commit.prototype.setMessage = function(value) {
+  jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 8;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+};
+
+
+/** @param {?proto.google.protobuf.Timestamp|undefined} value */
+proto.GITLAB_DASH_API.Commit.prototype.setCreatedAt = function(value) {
+  jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+proto.GITLAB_DASH_API.Commit.prototype.clearCreatedAt = function() {
+  this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.GITLAB_DASH_API.Commit.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.GITLAB_DASH_API.CommitList = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.CommitList.repeatedFields_, null);
+};
+goog.inherits(proto.GITLAB_DASH_API.CommitList, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.GITLAB_DASH_API.CommitList.displayName = 'proto.GITLAB_DASH_API.CommitList';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.GITLAB_DASH_API.CommitList.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.GITLAB_DASH_API.CommitList.prototype.toObject = function(opt_includeInstance) {
+  return proto.GITLAB_DASH_API.CommitList.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.GITLAB_DASH_API.CommitList} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.GITLAB_DASH_API.CommitList.toObject = function(includeInstance, msg) {
+  var f, obj = {
     commitsList: jspb.Message.toObjectList(msg.getCommitsList(),
     proto.GITLAB_DASH_API.Commit.toObject, includeInstance)
   };
@@ -1732,23 +2235,23 @@ proto.GITLAB_DASH_API.Project.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.Project}
+ * @return {!proto.GITLAB_DASH_API.CommitList}
  */
-proto.GITLAB_DASH_API.Project.deserializeBinary = function(bytes) {
+proto.GITLAB_DASH_API.CommitList.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.Project;
-  return proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.GITLAB_DASH_API.CommitList;
+  return proto.GITLAB_DASH_API.CommitList.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.Project} msg The message object to deserialize into.
+ * @param {!proto.GITLAB_DASH_API.CommitList} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.Project}
+ * @return {!proto.GITLAB_DASH_API.CommitList}
  */
-proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader = function(msg, reader) {
+proto.GITLAB_DASH_API.CommitList.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1756,48 +2259,6 @@ proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setNameWithNamespace(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDefaultBranch(value);
-      break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setVisibility(value);
-      break;
-    case 7:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setWebUrl(value);
-      break;
-    case 8:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAvatarUrl(value);
-      break;
-    case 9:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setCreatedAt(value);
-      break;
-    case 10:
-      var value = new proto.GITLAB_DASH_API.Issue;
-      reader.readMessage(value,proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader);
-      msg.addIssues(value);
-      break;
-    case 11:
       var value = new proto.GITLAB_DASH_API.Commit;
       reader.readMessage(value,proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader);
       msg.addCommits(value);
@@ -1815,9 +2276,9 @@ proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader = function(msg, reader
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.GITLAB_DASH_API.Project.prototype.serializeBinary = function() {
+proto.GITLAB_DASH_API.CommitList.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.Project.serializeBinaryToWriter(this, writer);
+  proto.GITLAB_DASH_API.CommitList.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1825,88 +2286,16 @@ proto.GITLAB_DASH_API.Project.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.Project} message
+ * @param {!proto.GITLAB_DASH_API.CommitList} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.GITLAB_DASH_API.Project.serializeBinaryToWriter = function(message, writer) {
+proto.GITLAB_DASH_API.CommitList.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
-  if (f !== 0) {
-    writer.writeInt32(
-      1,
-      f
-    );
-  }
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getNameWithNamespace();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getDescription();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
-      f
-    );
-  }
-  f = message.getDefaultBranch();
-  if (f.length > 0) {
-    writer.writeString(
-      5,
-      f
-    );
-  }
-  f = message.getVisibility();
-  if (f.length > 0) {
-    writer.writeString(
-      6,
-      f
-    );
-  }
-  f = message.getWebUrl();
-  if (f.length > 0) {
-    writer.writeString(
-      7,
-      f
-    );
-  }
-  f = message.getAvatarUrl();
-  if (f.length > 0) {
-    writer.writeString(
-      8,
-      f
-    );
-  }
-  f = message.getCreatedAt();
-  if (f != null) {
-    writer.writeMessage(
-      9,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getIssuesList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      10,
-      f,
-      proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter
-    );
-  }
   f = message.getCommitsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      11,
+      1,
       f,
       proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter
     );
@@ -1915,199 +2304,18 @@ proto.GITLAB_DASH_API.Project.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional int32 id = 1;
- * @return {number}
- */
-proto.GITLAB_DASH_API.Project.prototype.getId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.GITLAB_DASH_API.Project.prototype.setId = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
-};
-
-
-/**
- * optional string name = 2;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string name_with_namespace = 3;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getNameWithNamespace = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setNameWithNamespace = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string description = 4;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setDescription = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-/**
- * optional string default_branch = 5;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getDefaultBranch = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setDefaultBranch = function(value) {
-  jspb.Message.setProto3StringField(this, 5, value);
-};
-
-
-/**
- * optional string visibility = 6;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getVisibility = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setVisibility = function(value) {
-  jspb.Message.setProto3StringField(this, 6, value);
-};
-
-
-/**
- * optional string web_url = 7;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getWebUrl = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setWebUrl = function(value) {
-  jspb.Message.setProto3StringField(this, 7, value);
-};
-
-
-/**
- * optional string avatar_url = 8;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Project.prototype.getAvatarUrl = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Project.prototype.setAvatarUrl = function(value) {
-  jspb.Message.setProto3StringField(this, 8, value);
-};
-
-
-/**
- * optional google.protobuf.Timestamp created_at = 9;
- * @return {?proto.google.protobuf.Timestamp}
- */
-proto.GITLAB_DASH_API.Project.prototype.getCreatedAt = function() {
-  return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
-};
-
-
-/** @param {?proto.google.protobuf.Timestamp|undefined} value */
-proto.GITLAB_DASH_API.Project.prototype.setCreatedAt = function(value) {
-  jspb.Message.setWrapperField(this, 9, value);
-};
-
-
-proto.GITLAB_DASH_API.Project.prototype.clearCreatedAt = function() {
-  this.setCreatedAt(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.GITLAB_DASH_API.Project.prototype.hasCreatedAt = function() {
-  return jspb.Message.getField(this, 9) != null;
-};
-
-
-/**
- * repeated Issue issues = 10;
- * @return {!Array<!proto.GITLAB_DASH_API.Issue>}
- */
-proto.GITLAB_DASH_API.Project.prototype.getIssuesList = function() {
-  return /** @type{!Array<!proto.GITLAB_DASH_API.Issue>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Issue, 10));
-};
-
-
-/** @param {!Array<!proto.GITLAB_DASH_API.Issue>} value */
-proto.GITLAB_DASH_API.Project.prototype.setIssuesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 10, value);
-};
-
-
-/**
- * @param {!proto.GITLAB_DASH_API.Issue=} opt_value
- * @param {number=} opt_index
- * @return {!proto.GITLAB_DASH_API.Issue}
- */
-proto.GITLAB_DASH_API.Project.prototype.addIssues = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.GITLAB_DASH_API.Issue, opt_index);
-};
-
-
-proto.GITLAB_DASH_API.Project.prototype.clearIssuesList = function() {
-  this.setIssuesList([]);
-};
-
-
-/**
- * repeated Commit commits = 11;
+ * repeated Commit commits = 1;
  * @return {!Array<!proto.GITLAB_DASH_API.Commit>}
  */
-proto.GITLAB_DASH_API.Project.prototype.getCommitsList = function() {
+proto.GITLAB_DASH_API.CommitList.prototype.getCommitsList = function() {
   return /** @type{!Array<!proto.GITLAB_DASH_API.Commit>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Commit, 11));
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Commit, 1));
 };
 
 
 /** @param {!Array<!proto.GITLAB_DASH_API.Commit>} value */
-proto.GITLAB_DASH_API.Project.prototype.setCommitsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 11, value);
+proto.GITLAB_DASH_API.CommitList.prototype.setCommitsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
@@ -2116,181 +2324,13 @@ proto.GITLAB_DASH_API.Project.prototype.setCommitsList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.GITLAB_DASH_API.Commit}
  */
-proto.GITLAB_DASH_API.Project.prototype.addCommits = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.GITLAB_DASH_API.Commit, opt_index);
+proto.GITLAB_DASH_API.CommitList.prototype.addCommits = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.Commit, opt_index);
 };
 
 
-proto.GITLAB_DASH_API.Project.prototype.clearCommitsList = function() {
+proto.GITLAB_DASH_API.CommitList.prototype.clearCommitsList = function() {
   this.setCommitsList([]);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.GITLAB_DASH_API.ProjectList = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.GITLAB_DASH_API.ProjectList.repeatedFields_, null);
-};
-goog.inherits(proto.GITLAB_DASH_API.ProjectList, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.GITLAB_DASH_API.ProjectList.displayName = 'proto.GITLAB_DASH_API.ProjectList';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.GITLAB_DASH_API.ProjectList.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.GITLAB_DASH_API.ProjectList.prototype.toObject = function(opt_includeInstance) {
-  return proto.GITLAB_DASH_API.ProjectList.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.GITLAB_DASH_API.ProjectList} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.ProjectList.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    projectsList: jspb.Message.toObjectList(msg.getProjectsList(),
-    proto.GITLAB_DASH_API.Project.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.GITLAB_DASH_API.ProjectList}
- */
-proto.GITLAB_DASH_API.ProjectList.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.GITLAB_DASH_API.ProjectList;
-  return proto.GITLAB_DASH_API.ProjectList.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.GITLAB_DASH_API.ProjectList} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.GITLAB_DASH_API.ProjectList}
- */
-proto.GITLAB_DASH_API.ProjectList.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.GITLAB_DASH_API.Project;
-      reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
-      msg.addProjects(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.GITLAB_DASH_API.ProjectList.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.GITLAB_DASH_API.ProjectList.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.GITLAB_DASH_API.ProjectList} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.GITLAB_DASH_API.ProjectList.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getProjectsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated Project projects = 1;
- * @return {!Array<!proto.GITLAB_DASH_API.Project>}
- */
-proto.GITLAB_DASH_API.ProjectList.prototype.getProjectsList = function() {
-  return /** @type{!Array<!proto.GITLAB_DASH_API.Project>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Project, 1));
-};
-
-
-/** @param {!Array<!proto.GITLAB_DASH_API.Project>} value */
-proto.GITLAB_DASH_API.ProjectList.prototype.setProjectsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.GITLAB_DASH_API.Project=} opt_value
- * @param {number=} opt_index
- * @return {!proto.GITLAB_DASH_API.Project}
- */
-proto.GITLAB_DASH_API.ProjectList.prototype.addProjects = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.GITLAB_DASH_API.Project, opt_index);
-};
-
-
-proto.GITLAB_DASH_API.ProjectList.prototype.clearProjectsList = function() {
-  this.setProjectsList([]);
 };
 
 
@@ -2317,7 +2357,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.GITLAB_DASH_API.User.repeatedFields_ = [10,11,12,13];
+proto.GITLAB_DASH_API.User.repeatedFields_ = [11,13,15,16];
 
 
 
@@ -2357,10 +2397,13 @@ proto.GITLAB_DASH_API.User.toObject = function(includeInstance, msg) {
     webUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
     isAdmin: jspb.Message.getFieldWithDefault(msg, 8, false),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    numberOfIssues: jspb.Message.getFieldWithDefault(msg, 10, 0),
     issuesList: jspb.Message.toObjectList(msg.getIssuesList(),
     proto.GITLAB_DASH_API.Issue.toObject, includeInstance),
+    numberOfCommits: jspb.Message.getFieldWithDefault(msg, 12, 0),
     commitsList: jspb.Message.toObjectList(msg.getCommitsList(),
     proto.GITLAB_DASH_API.Commit.toObject, includeInstance),
+    numberOfMergeRequests: jspb.Message.getFieldWithDefault(msg, 14, 0),
     mergeRequestsList: jspb.Message.toObjectList(msg.getMergeRequestsList(),
     proto.GITLAB_DASH_API.MergeRequest.toObject, includeInstance),
     projectsList: jspb.Message.toObjectList(msg.getProjectsList(),
@@ -2439,21 +2482,33 @@ proto.GITLAB_DASH_API.User.deserializeBinaryFromReader = function(msg, reader) {
       msg.setCreatedAt(value);
       break;
     case 10:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumberOfIssues(value);
+      break;
+    case 11:
       var value = new proto.GITLAB_DASH_API.Issue;
       reader.readMessage(value,proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader);
       msg.addIssues(value);
       break;
-    case 11:
+    case 12:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumberOfCommits(value);
+      break;
+    case 13:
       var value = new proto.GITLAB_DASH_API.Commit;
       reader.readMessage(value,proto.GITLAB_DASH_API.Commit.deserializeBinaryFromReader);
       msg.addCommits(value);
       break;
-    case 12:
+    case 14:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumberOfMergeRequests(value);
+      break;
+    case 15:
       var value = new proto.GITLAB_DASH_API.MergeRequest;
       reader.readMessage(value,proto.GITLAB_DASH_API.MergeRequest.deserializeBinaryFromReader);
       msg.addMergeRequests(value);
       break;
-    case 13:
+    case 16:
       var value = new proto.GITLAB_DASH_API.Project;
       reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
       msg.addProjects(value);
@@ -2551,26 +2606,47 @@ proto.GITLAB_DASH_API.User.serializeBinaryToWriter = function(message, writer) {
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getNumberOfIssues();
+  if (f !== 0) {
+    writer.writeInt32(
+      10,
+      f
+    );
+  }
   f = message.getIssuesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      10,
+      11,
       f,
       proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter
+    );
+  }
+  f = message.getNumberOfCommits();
+  if (f !== 0) {
+    writer.writeInt32(
+      12,
+      f
     );
   }
   f = message.getCommitsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      11,
+      13,
       f,
       proto.GITLAB_DASH_API.Commit.serializeBinaryToWriter
+    );
+  }
+  f = message.getNumberOfMergeRequests();
+  if (f !== 0) {
+    writer.writeInt32(
+      14,
+      f
     );
   }
   f = message.getMergeRequestsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      12,
+      15,
       f,
       proto.GITLAB_DASH_API.MergeRequest.serializeBinaryToWriter
     );
@@ -2578,7 +2654,7 @@ proto.GITLAB_DASH_API.User.serializeBinaryToWriter = function(message, writer) {
   f = message.getProjectsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      13,
+      16,
       f,
       proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
     );
@@ -2739,18 +2815,33 @@ proto.GITLAB_DASH_API.User.prototype.hasCreatedAt = function() {
 
 
 /**
- * repeated Issue issues = 10;
+ * optional int32 number_of_issues = 10;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.User.prototype.getNumberOfIssues = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.User.prototype.setNumberOfIssues = function(value) {
+  jspb.Message.setProto3IntField(this, 10, value);
+};
+
+
+/**
+ * repeated Issue issues = 11;
  * @return {!Array<!proto.GITLAB_DASH_API.Issue>}
  */
 proto.GITLAB_DASH_API.User.prototype.getIssuesList = function() {
   return /** @type{!Array<!proto.GITLAB_DASH_API.Issue>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Issue, 10));
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Issue, 11));
 };
 
 
 /** @param {!Array<!proto.GITLAB_DASH_API.Issue>} value */
 proto.GITLAB_DASH_API.User.prototype.setIssuesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 10, value);
+  jspb.Message.setRepeatedWrapperField(this, 11, value);
 };
 
 
@@ -2760,7 +2851,7 @@ proto.GITLAB_DASH_API.User.prototype.setIssuesList = function(value) {
  * @return {!proto.GITLAB_DASH_API.Issue}
  */
 proto.GITLAB_DASH_API.User.prototype.addIssues = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.GITLAB_DASH_API.Issue, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.GITLAB_DASH_API.Issue, opt_index);
 };
 
 
@@ -2770,18 +2861,33 @@ proto.GITLAB_DASH_API.User.prototype.clearIssuesList = function() {
 
 
 /**
- * repeated Commit commits = 11;
+ * optional int32 number_of_commits = 12;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.User.prototype.getNumberOfCommits = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.User.prototype.setNumberOfCommits = function(value) {
+  jspb.Message.setProto3IntField(this, 12, value);
+};
+
+
+/**
+ * repeated Commit commits = 13;
  * @return {!Array<!proto.GITLAB_DASH_API.Commit>}
  */
 proto.GITLAB_DASH_API.User.prototype.getCommitsList = function() {
   return /** @type{!Array<!proto.GITLAB_DASH_API.Commit>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Commit, 11));
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Commit, 13));
 };
 
 
 /** @param {!Array<!proto.GITLAB_DASH_API.Commit>} value */
 proto.GITLAB_DASH_API.User.prototype.setCommitsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 11, value);
+  jspb.Message.setRepeatedWrapperField(this, 13, value);
 };
 
 
@@ -2791,7 +2897,7 @@ proto.GITLAB_DASH_API.User.prototype.setCommitsList = function(value) {
  * @return {!proto.GITLAB_DASH_API.Commit}
  */
 proto.GITLAB_DASH_API.User.prototype.addCommits = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.GITLAB_DASH_API.Commit, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 13, opt_value, proto.GITLAB_DASH_API.Commit, opt_index);
 };
 
 
@@ -2801,18 +2907,33 @@ proto.GITLAB_DASH_API.User.prototype.clearCommitsList = function() {
 
 
 /**
- * repeated MergeRequest merge_requests = 12;
+ * optional int32 number_of_merge_requests = 14;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.User.prototype.getNumberOfMergeRequests = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 14, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.User.prototype.setNumberOfMergeRequests = function(value) {
+  jspb.Message.setProto3IntField(this, 14, value);
+};
+
+
+/**
+ * repeated MergeRequest merge_requests = 15;
  * @return {!Array<!proto.GITLAB_DASH_API.MergeRequest>}
  */
 proto.GITLAB_DASH_API.User.prototype.getMergeRequestsList = function() {
   return /** @type{!Array<!proto.GITLAB_DASH_API.MergeRequest>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.MergeRequest, 12));
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.MergeRequest, 15));
 };
 
 
 /** @param {!Array<!proto.GITLAB_DASH_API.MergeRequest>} value */
 proto.GITLAB_DASH_API.User.prototype.setMergeRequestsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 12, value);
+  jspb.Message.setRepeatedWrapperField(this, 15, value);
 };
 
 
@@ -2822,7 +2943,7 @@ proto.GITLAB_DASH_API.User.prototype.setMergeRequestsList = function(value) {
  * @return {!proto.GITLAB_DASH_API.MergeRequest}
  */
 proto.GITLAB_DASH_API.User.prototype.addMergeRequests = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 12, opt_value, proto.GITLAB_DASH_API.MergeRequest, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 15, opt_value, proto.GITLAB_DASH_API.MergeRequest, opt_index);
 };
 
 
@@ -2832,18 +2953,18 @@ proto.GITLAB_DASH_API.User.prototype.clearMergeRequestsList = function() {
 
 
 /**
- * repeated Project projects = 13;
+ * repeated Project projects = 16;
  * @return {!Array<!proto.GITLAB_DASH_API.Project>}
  */
 proto.GITLAB_DASH_API.User.prototype.getProjectsList = function() {
   return /** @type{!Array<!proto.GITLAB_DASH_API.Project>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Project, 13));
+    jspb.Message.getRepeatedWrapperField(this, proto.GITLAB_DASH_API.Project, 16));
 };
 
 
 /** @param {!Array<!proto.GITLAB_DASH_API.Project>} value */
 proto.GITLAB_DASH_API.User.prototype.setProjectsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 13, value);
+  jspb.Message.setRepeatedWrapperField(this, 16, value);
 };
 
 
@@ -2853,7 +2974,7 @@ proto.GITLAB_DASH_API.User.prototype.setProjectsList = function(value) {
  * @return {!proto.GITLAB_DASH_API.Project}
  */
 proto.GITLAB_DASH_API.User.prototype.addProjects = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 13, opt_value, proto.GITLAB_DASH_API.Project, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 16, opt_value, proto.GITLAB_DASH_API.Project, opt_index);
 };
 
 
