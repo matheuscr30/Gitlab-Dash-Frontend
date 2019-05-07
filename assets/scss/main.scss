@@ -9,3 +9,19 @@
 .fullscreen {
   background-color: var(--v-background-base) !important;
 }
+
+.truncate-text--4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.truncate-text--1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}

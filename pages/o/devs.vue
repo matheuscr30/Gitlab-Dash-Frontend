@@ -91,7 +91,7 @@ export default {
         start++
 
         if (start === end - 3) start = -1
-        setTimeout(f, 1000)
+        setTimeout(f, 5000)
       }
       f()
     }
