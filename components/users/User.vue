@@ -205,9 +205,6 @@ export default {
       default: undefined,
       type: Number
     }
-  },
-  created() {
-    console.log(this.user)
   }
 }
 </script>
