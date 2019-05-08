@@ -1,6 +1,6 @@
 <template>
   <v-flex
-    v-if="!user.isAdmin || showAdmins"
+    v-show="!user.isAdmin || showAdmins"
     xs12
     class="mt-5"
     :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }"

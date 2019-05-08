@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout wrap>
-      <v-layout row wrap class="mt-4 px-3 containerTimeline">
+      <v-layout row wrap class="mt-4 px-3">
         <v-flex xs12 sm6 md4 lg3>
           <stats-card
             color="green"
@@ -130,10 +130,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.containerTimeline {
-  div:last-child {
-    margin-bottom: 15px;
-  }
-}
-</style>
+<style lang="scss"></style>
