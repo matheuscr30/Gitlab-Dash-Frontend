@@ -20,14 +20,15 @@ message ProjectList {
 
 message Issue {
   int32 id = 1;
-  Project project = 2;
-  string title = 3;
-  string state = 4;
-  string description = 5;
-  int32 author_id = 6;
-  string web_url = 7;
-  google.protobuf.Timestamp closed_at = 8;
-  google.protobuf.Timestamp created_at = 9;
+  int32 iid = 2;
+  Project project = 3;
+  string title = 4;
+  string state = 5;
+  string description = 6;
+  int32 author_id = 7;
+  string web_url = 8;
+  google.protobuf.Timestamp closed_at = 9;
+  google.protobuf.Timestamp created_at = 10;
 }
 
 message IssueList {

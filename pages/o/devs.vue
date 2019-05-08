@@ -19,6 +19,13 @@
             <v-icon>merge_type</v-icon>
           </v-btn>
         </v-btn-toggle>
+
+        <v-switch
+          v-model="showAdmins"
+          label="Show Admins"
+          color="indigo darken-3"
+          hide-details
+        ></v-switch>
       </v-flex>
 
       <div id="timeline--1"></div>
@@ -29,6 +36,7 @@
         :key="user.id"
         :user="user"
         :timelineOption="timelineOption"
+        :showAdmins="showAdmins"
       />
     </v-layout>
   </v-container>
@@ -51,12 +59,27 @@ export default {
   data() {
     return {
       timelineOption: 0,
+      showAdmins: false,
       stopScroll: false
     }
   },
   computed: {
     users() {
-      return this.$store.getters['users/users']
+      let usersAux = [...this.$store.getters['users/users']]
+      if (this.timelineOption === 0) {
+        usersAux = usersAux.sort((a, b) =>
+          a.numberOfCommits > b.numberOfCommits ? -1 : 1
+        )
+      } else if (this.timelineOption === 1) {
+        usersAux = usersAux.sort((a, b) =>
+          a.numberOfIssues > b.numberOfIssues ? -1 : 1
+        )
+      } else {
+        usersAux = usersAux.sort((a, b) =>
+          a.numberOfMergeRequests > b.numberOfMergeRequests ? -1 : 1
+        )
+      }
+      return usersAux
     }
   },
   async created() {
