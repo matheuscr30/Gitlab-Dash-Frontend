@@ -1,5 +1,10 @@
 <template>
-  <v-flex xs12 class="mt-5" :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }">
+  <v-flex
+    v-if="!user.isAdmin || showAdmins"
+    xs12
+    class="mt-5"
+    :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }"
+  >
     <div class="timeline"></div>
 
     <v-layout row wrap class="timeline-item">
@@ -68,14 +73,14 @@
                 <span class="truncate-text--4">
                   <span v-if="commit.issue">
                     <a :href="commit.issue.webUrl" target="_blank">
-                      #{{ commit.issue.id }}
+                      #{{ commit.issue.iid }}
                     </a>
                     <span class="font-weight-medium">
                       {{ commit.issue.title }}: &nbsp;
                     </span>
                   </span>
 
-                  {{ commit.message }}
+                  {{ commit.title | cleanTitle(commit.issue) }}
                 </span>
 
                 <span class="grey--text pt-3">
@@ -119,7 +124,7 @@
               <v-flex>
                 <span class="truncate-text--4">
                   <a :href="fixedIssue.webUrl" target="_blank">
-                    #{{ fixedIssue.id }}
+                    #{{ fixedIssue.iid }}
                   </a>
                   <span class="pl-1">
                     {{ fixedIssue.title }}
@@ -166,10 +171,16 @@
 
               <v-flex>
                 <span class="truncate-text--4">
-                  <a :href="mergeRequest.webUrl" target="_blank">
-                    #{{ mergeRequest.id }}
-                  </a>
-                  {{ mergeRequest.title }}
+                  <span v-if="mergeRequest.issue">
+                    <a :href="mergeRequest.issue.webUrl" target="_blank">
+                      #{{ mergeRequest.issue.iid }}
+                    </a>
+                    <span class="font-weight-medium">
+                      {{ mergeRequest.issue.title }}:
+                    </span>
+                  </span>
+
+                  {{ mergeRequest.title | cleanTitle(mergeRequest.issue) }}
                 </span>
 
                 <span class="grey--text pt-3">
@@ -190,8 +201,19 @@ import moment from 'moment'
 export default {
   name: 'User',
   filters: {
-    moment: function(date) {
+    moment(date) {
       return moment(date).fromNow()
+    },
+    cleanTitle(title, issue) {
+      if (issue) {
+        title = title.replace(/.*#([0-9]+)./, '')
+        // title = title.replace(issue.title, '')
+
+        if (title) return title
+        return ''
+      } else {
+        return title
+      }
     }
   },
   props: {
@@ -204,6 +226,10 @@ export default {
     timelineOption: {
       default: undefined,
       type: Number
+    },
+    showAdmins: {
+      default: undefined,
+      type: Boolean
     }
   }
 }

@@ -617,12 +617,13 @@ proto.GITLAB_DASH_API.Issue.prototype.toObject = function(opt_includeInstance) {
 proto.GITLAB_DASH_API.Issue.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    iid: jspb.Message.getFieldWithDefault(msg, 2, 0),
     project: (f = msg.getProject()) && proto.GITLAB_DASH_API.Project.toObject(includeInstance, f),
-    title: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    state: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    authorId: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    webUrl: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    title: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    state: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    authorId: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    webUrl: jspb.Message.getFieldWithDefault(msg, 8, ""),
     closedAt: (f = msg.getClosedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
@@ -666,36 +667,40 @@ proto.GITLAB_DASH_API.Issue.deserializeBinaryFromReader = function(msg, reader) 
       msg.setId(value);
       break;
     case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setIid(value);
+      break;
+    case 3:
       var value = new proto.GITLAB_DASH_API.Project;
       reader.readMessage(value,proto.GITLAB_DASH_API.Project.deserializeBinaryFromReader);
       msg.setProject(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setTitle(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setState(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
       break;
-    case 6:
+    case 7:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setAuthorId(value);
       break;
-    case 7:
+    case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setWebUrl(value);
       break;
-    case 8:
+    case 9:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setClosedAt(value);
       break;
-    case 9:
+    case 10:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedAt(value);
@@ -736,10 +741,17 @@ proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
+  f = message.getIid();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
   f = message.getProject();
   if (f != null) {
     writer.writeMessage(
-      2,
+      3,
       f,
       proto.GITLAB_DASH_API.Project.serializeBinaryToWriter
     );
@@ -747,42 +759,42 @@ proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter = function(message, writer) 
   f = message.getTitle();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      4,
       f
     );
   }
   f = message.getState();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      5,
       f
     );
   }
   f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
-      5,
+      6,
       f
     );
   }
   f = message.getAuthorId();
   if (f !== 0) {
     writer.writeInt32(
-      6,
+      7,
       f
     );
   }
   f = message.getWebUrl();
   if (f.length > 0) {
     writer.writeString(
-      7,
+      8,
       f
     );
   }
   f = message.getClosedAt();
   if (f != null) {
     writer.writeMessage(
-      8,
+      9,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -790,7 +802,7 @@ proto.GITLAB_DASH_API.Issue.serializeBinaryToWriter = function(message, writer) 
   f = message.getCreatedAt();
   if (f != null) {
     writer.writeMessage(
-      9,
+      10,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -814,18 +826,33 @@ proto.GITLAB_DASH_API.Issue.prototype.setId = function(value) {
 
 
 /**
- * optional Project project = 2;
+ * optional int32 iid = 2;
+ * @return {number}
+ */
+proto.GITLAB_DASH_API.Issue.prototype.getIid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.GITLAB_DASH_API.Issue.prototype.setIid = function(value) {
+  jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional Project project = 3;
  * @return {?proto.GITLAB_DASH_API.Project}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getProject = function() {
   return /** @type{?proto.GITLAB_DASH_API.Project} */ (
-    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Project, 2));
+    jspb.Message.getWrapperField(this, proto.GITLAB_DASH_API.Project, 3));
 };
 
 
 /** @param {?proto.GITLAB_DASH_API.Project|undefined} value */
 proto.GITLAB_DASH_API.Issue.prototype.setProject = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  jspb.Message.setWrapperField(this, 3, value);
 };
 
 
@@ -839,98 +866,98 @@ proto.GITLAB_DASH_API.Issue.prototype.clearProject = function() {
  * @return {!boolean}
  */
 proto.GITLAB_DASH_API.Issue.prototype.hasProject = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
 /**
- * optional string title = 3;
+ * optional string title = 4;
  * @return {string}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getTitle = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.GITLAB_DASH_API.Issue.prototype.setTitle = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string state = 4;
- * @return {string}
- */
-proto.GITLAB_DASH_API.Issue.prototype.getState = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.Issue.prototype.setState = function(value) {
+proto.GITLAB_DASH_API.Issue.prototype.setTitle = function(value) {
   jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional string description = 5;
+ * optional string state = 5;
  * @return {string}
  */
-proto.GITLAB_DASH_API.Issue.prototype.getDescription = function() {
+proto.GITLAB_DASH_API.Issue.prototype.getState = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.GITLAB_DASH_API.Issue.prototype.setDescription = function(value) {
+proto.GITLAB_DASH_API.Issue.prototype.setState = function(value) {
   jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional int32 author_id = 6;
+ * optional string description = 6;
+ * @return {string}
+ */
+proto.GITLAB_DASH_API.Issue.prototype.getDescription = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.GITLAB_DASH_API.Issue.prototype.setDescription = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional int32 author_id = 7;
  * @return {number}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getAuthorId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
 /** @param {number} value */
 proto.GITLAB_DASH_API.Issue.prototype.setAuthorId = function(value) {
-  jspb.Message.setProto3IntField(this, 6, value);
+  jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional string web_url = 7;
+ * optional string web_url = 8;
  * @return {string}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getWebUrl = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
 /** @param {string} value */
 proto.GITLAB_DASH_API.Issue.prototype.setWebUrl = function(value) {
-  jspb.Message.setProto3StringField(this, 7, value);
+  jspb.Message.setProto3StringField(this, 8, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp closed_at = 8;
+ * optional google.protobuf.Timestamp closed_at = 9;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getClosedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
 };
 
 
 /** @param {?proto.google.protobuf.Timestamp|undefined} value */
 proto.GITLAB_DASH_API.Issue.prototype.setClosedAt = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  jspb.Message.setWrapperField(this, 9, value);
 };
 
 
@@ -944,23 +971,23 @@ proto.GITLAB_DASH_API.Issue.prototype.clearClosedAt = function() {
  * @return {!boolean}
  */
 proto.GITLAB_DASH_API.Issue.prototype.hasClosedAt = function() {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 9) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp created_at = 9;
+ * optional google.protobuf.Timestamp created_at = 10;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.GITLAB_DASH_API.Issue.prototype.getCreatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 10));
 };
 
 
 /** @param {?proto.google.protobuf.Timestamp|undefined} value */
 proto.GITLAB_DASH_API.Issue.prototype.setCreatedAt = function(value) {
-  jspb.Message.setWrapperField(this, 9, value);
+  jspb.Message.setWrapperField(this, 10, value);
 };
 
 
@@ -974,7 +1001,7 @@ proto.GITLAB_DASH_API.Issue.prototype.clearCreatedAt = function() {
  * @return {!boolean}
  */
 proto.GITLAB_DASH_API.Issue.prototype.hasCreatedAt = function() {
-  return jspb.Message.getField(this, 9) != null;
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
