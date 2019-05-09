@@ -72,8 +72,6 @@
 </template>
 
 <script>
-import { EventBus } from '@/mixins/modules/eventBus'
-
 export default {
   name: 'O',
   data() {
@@ -121,10 +119,12 @@ export default {
         wrap: false,
         callback: this.fullscreenChange
       })
-      EventBus.$emit('openFullscreen')
+      this.$store.dispatch('setIsFullscreen', true)
     },
     fullscreenChange(fullscreen) {
-      if (!fullscreen) EventBus.$emit('closeFullscreen')
+      if (!fullscreen) {
+        this.$store.dispatch('setIsFullscreen', false)
+      }
       this.fullscreen = fullscreen
     }
   }

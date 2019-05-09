@@ -2,6 +2,7 @@ import qs from 'qs'
 
 export const state = () => ({
   isHydrated: false,
+  isFullscreen: false,
   loadingAccessToken: false,
   accessToken: ''
 })
@@ -9,6 +10,9 @@ export const state = () => ({
 export const getters = {
   isHydrated(state) {
     return state.isHydrated
+  },
+  isFullscreen(state) {
+    return state.isFullscreen
   },
   loadingAccessToken(state) {
     return state.loadingAccessToken
@@ -22,6 +26,9 @@ export const mutations = {
   SET_IS_HYDRATED(state, isHydrated) {
     state.isHydrated = isHydrated
   },
+  SET_IS_FULLSCREEN(state, isFullscreen) {
+    state.isFullscreen = isFullscreen
+  },
   SET_ACCESS_TOKEN(state, accessToken) {
     state.accessToken = accessToken
   }
@@ -30,6 +37,9 @@ export const mutations = {
 export const actions = {
   setIsHydrated({ commit }, isHydrated) {
     commit('SET_IS_HYDRATED', isHydrated)
+  },
+  setIsFullscreen({ commit }, isFullscreen) {
+    commit('SET_IS_FULLSCREEN', isFullscreen)
   },
   async requestToken({ commit }) {
     const response = await this.$axios.$post(

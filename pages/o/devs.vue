@@ -36,7 +36,6 @@
 
 <script>
 import User from '@/components/users/User'
-import { EventBus } from '@/mixins/modules/eventBus'
 
 export default {
   name: 'Devs',
@@ -73,16 +72,17 @@ export default {
       return usersAux
     }
   },
+  watch: {
+    $isFullscreen() {
+      if (this.$isFullscreen) {
+        this.startScroll()
+      } else {
+        this.stopScroll = true
+      }
+    }
+  },
   async created() {
     this.$emit('changedTitle', 'Devs')
-
-    EventBus.$on('openFullscreen', () => {
-      this.startScroll()
-    })
-
-    EventBus.$on('closeFullscreen', () => {
-      this.stopScroll = true
-    })
 
     if (this.$route.query.timeline_option === 'commit') this.timelineOption = 0
     else if (this.$route.query.timeline_option === 'fixed_issue')
@@ -101,7 +101,15 @@ export default {
         if (this.stopScroll) return
 
         const element = document.getElementById('timeline-' + start.toString())
-        element.scrollIntoView({ behavior: 'smooth' })
+
+        if (start === -1) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          const timelineItem = element.getElementsByClassName(
+            'xs-timeline-item'
+          )[0]
+          timelineItem.scrollIntoView({ behavior: 'smooth' })
+        }
         start++
 
         if (start === end - 3) start = -1
