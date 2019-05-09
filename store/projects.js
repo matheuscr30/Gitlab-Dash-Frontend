@@ -4,7 +4,8 @@ export const state = () => ({
   projects: [],
   projectFixedIssues: {},
   projectCommits: {},
-  projectBranches: {}
+  projectBranches: {},
+  projectFailedImages: {}
 })
 
 export const getters = {
@@ -19,6 +20,9 @@ export const getters = {
   },
   projectBranches(state) {
     return state.projectBranches
+  },
+  projectFailedImages(state) {
+    return state.projectFailedImages
   }
 }
 
@@ -40,6 +44,13 @@ export const mutations = {
     const projectBranches = { ...state.projectBranches }
     projectBranches[projectId] = branches
     state.projectBranches = projectBranches
+  },
+  ADD_PROJECT_FAILED_IMAGE(state, projectId) {
+    if (state.projectFailedImages[projectId]) return
+
+    const projectFailedImages = { ...state.projectFailedImages }
+    projectFailedImages[projectId] = true
+    state.projectFailedImages = projectFailedImages
   }
 }
 
@@ -82,5 +93,8 @@ export const actions = {
     const branchListObject = branchListProto.toObject(API.BranchList)
     const branches = branchListObject.branchesList
     commit('ADD_PROJECT_BRANCHES', { projectId, branches })
+  },
+  addProjectFailedImage({ commit }, projectId) {
+    commit('ADD_PROJECT_FAILED_IMAGE', projectId)
   }
 }

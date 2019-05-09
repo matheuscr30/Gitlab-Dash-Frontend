@@ -43,18 +43,27 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
+              <div v-if="$isFullscreen" class="fullscreen-margin"></div>
+
               <div class="truncate-text--1 font-weight-medium">
                 {{ commit.project.name }}
               </div>
 
               <span>
                 <v-avatar
-                  v-if="commit.project.avatarUrl !== ''"
+                  v-if="
+                    commit.project.avatarUrl !== '' &&
+                      !projectFailedImages[commit.project.id]
+                  "
                   size="32"
                   color="grey lighten-4"
                   class="text-xs-center"
                 >
-                  <img :src="commit.project.avatarUrl" alt="avatar" />
+                  <img
+                    :src="commit.project.avatarUrl"
+                    alt="avatar"
+                    @error="() => setFailedImage(commit.project.id)"
+                  />
                 </v-avatar>
 
                 <v-avatar v-else color="yellow darken-2" size="32">
@@ -68,11 +77,9 @@
                 <span class="truncate-text--4">
                   <span v-if="commit.issue">
                     <a :href="commit.issue.webUrl" target="_blank">
-                      #{{ commit.issue.iid }}
+                      {{ commit.issue.title }}
                     </a>
-                    <span class="font-weight-medium">
-                      {{ commit.issue.title }}: &nbsp;
-                    </span>
+                    : &nbsp;
                   </span>
 
                   {{ commit.title | cleanTitle(commit.issue) }}
@@ -95,18 +102,27 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
+              <div v-if="$isFullscreen" class="fullscreen-margin"></div>
+
               <div class="truncate-text--1 font-weight-medium">
                 {{ fixedIssue.project.name }}
               </div>
 
               <span>
                 <v-avatar
-                  v-if="fixedIssue.project.avatarUrl !== ''"
+                  v-if="
+                    fixedIssue.project.avatarUrl !== '' &&
+                      !projectFailedImages[fixedIssue.project.id]
+                  "
                   size="32"
                   color="grey lighten-4"
                   class="text-xs-center"
                 >
-                  <img :src="fixedIssue.project.avatarUrl" alt="avatar" />
+                  <img
+                    :src="fixedIssue.project.avatarUrl"
+                    alt="avatar"
+                    @error="() => setFailedImage(fixedIssue.project.id)"
+                  />
                 </v-avatar>
 
                 <v-avatar v-else color="red" size="32">
@@ -143,18 +159,27 @@
             class="timeline-text xs-timeline-item"
           >
             <v-layout column wrap align-center>
+              <div v-if="$isFullscreen" class="fullscreen-margin"></div>
+
               <div class="truncate-text--1 font-weight-medium">
                 {{ mergeRequest.project.name }}
               </div>
 
               <span>
                 <v-avatar
-                  v-if="mergeRequest.project.avatarUrl !== ''"
+                  v-if="
+                    mergeRequest.project.avatarUrl !== '' &&
+                      !projectFailedImages[mergeRequest.project.id]
+                  "
                   size="32"
                   color="grey lighten-4"
                   class="text-xs-center"
                 >
-                  <img :src="mergeRequest.project.avatarUrl" alt="avatar" />
+                  <img
+                    :src="mergeRequest.project.avatarUrl"
+                    alt="avatar"
+                    @error="() => setFailedImage(mergeRequest.project.id)"
+                  />
                 </v-avatar>
 
                 <v-avatar v-else color="purple darken-1" size="32">
@@ -168,14 +193,14 @@
                 <span class="truncate-text--4">
                   <span v-if="mergeRequest.issue">
                     <a :href="mergeRequest.issue.webUrl" target="_blank">
-                      #{{ mergeRequest.issue.iid }}
+                      {{ mergeRequest.issue.title }}
                     </a>
-                    <span class="font-weight-medium">
-                      {{ mergeRequest.issue.title }}:
-                    </span>
+                    :
                   </span>
 
-                  {{ mergeRequest.title | cleanTitle(mergeRequest.issue) }}
+                  <span class="timeline-item--title">
+                    {{ mergeRequest.title | cleanTitle(mergeRequest.issue) }}
+                  </span>
                 </span>
 
                 <span class="grey--text pt-3">
@@ -222,6 +247,16 @@ export default {
       default: undefined,
       type: Number
     }
+  },
+  computed: {
+    projectFailedImages() {
+      return this.$store.getters['projects/projectFailedImages']
+    }
+  },
+  methods: {
+    setFailedImage(projectId) {
+      this.$store.dispatch('projects/addProjectFailedImage', projectId)
+    }
   }
 }
 </script>
@@ -238,11 +273,20 @@ export default {
   height: 2px;
 }
 
+.timeline-item--title {
+  font-size: 13.7px !important;
+  line-height: 1.7;
+}
+
 .timeline-header {
   margin-top: -25px !important;
 }
 
 .timeline-text {
   margin-top: -38px !important;
+}
+
+.fullscreen-margin {
+  margin-top: 7px;
 }
 </style>

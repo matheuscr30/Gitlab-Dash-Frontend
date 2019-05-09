@@ -16,6 +16,9 @@ export default {
       } else {
         return true
       }
+    },
+    $isFullscreen() {
+      return this.$store.getters.isFullscreen
     }
   }
 }
