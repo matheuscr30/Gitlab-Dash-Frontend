@@ -3,7 +3,6 @@ const API = require('../proto/APIV1_pb')
 export const state = () => ({
   projects: [],
   projectFixedIssues: {},
-  projectMembers: {},
   projectCommits: {},
   projectBranches: {}
 })
@@ -14,9 +13,6 @@ export const getters = {
   },
   projectFixedIssues(state) {
     return state.projectFixedIssues
-  },
-  projectMembers(state) {
-    return state.projectMembers
   },
   projectCommits(state) {
     return state.projectCommits
@@ -34,11 +30,6 @@ export const mutations = {
     const projectFixedIssues = { ...state.projectFixedIssues }
     projectFixedIssues[projectId] = fixedIssues
     state.projectFixedIssues = projectFixedIssues
-  },
-  ADD_PROJECT_MEMBERS(state, { projectId, members }) {
-    const projectMembers = { ...state.projectMembers }
-    projectMembers[projectId] = members
-    state.projectMembers = projectMembers
   },
   ADD_PROJECT_COMMITS(state, { projectId, commits }) {
     const projectCommits = { ...state.projectCommits }
@@ -73,15 +64,6 @@ export const actions = {
     const issueListObject = issueListProto.toObject(API.IssueList)
     const fixedIssues = issueListObject.issuesList
     commit('ADD_PROJECT_FIXED_ISSUES', { projectId, fixedIssues })
-  },
-  async loadMembers({ state, commit, dispatch }, projectId) {
-    const response = await this.$axios.$get(`projects/${projectId}/members/`, {
-      responseType: 'arraybuffer'
-    })
-    const userListProto = API.UserList.deserializeBinary(response)
-    const userListObject = userListProto.toObject(API.UserList)
-    const members = userListObject.usersList
-    commit('ADD_PROJECT_MEMBERS', { projectId, members })
   },
   async loadCommits({ commit }, projectId) {
     const response = await this.$axios.$get(`projects/${projectId}/commits/`, {
