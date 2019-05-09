@@ -42,16 +42,9 @@
           </v-avatar>
 
           <span class="ml-2">
-            <v-progress-circular
-              v-if="loadingMembers"
-              indeterminate
-              size="25"
-              color="blue"
-            ></v-progress-circular>
-
-            <span v-else>
+            <span>
               <span class="blue--text subheading font-weight-bold pr-1">
-                {{ members.length }}
+                {{ project.numberOfMembers }}
               </span>
               Members
             </span>
@@ -261,10 +254,6 @@ export default {
       type: Boolean,
       default: false
     },
-    loadingMembers: {
-      type: Boolean,
-      default: false
-    },
     loadingCommits: {
       type: Boolean,
       default: false
@@ -274,12 +263,6 @@ export default {
       default: false
     },
     fixedIssues: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    },
-    members: {
       type: Array,
       default: () => {
         return []

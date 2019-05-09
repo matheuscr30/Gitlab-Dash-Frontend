@@ -11,7 +11,8 @@ message Project {
   string visibility = 6;
   string web_url = 7;
   string avatar_url = 8;
-  google.protobuf.Timestamp created_at = 9;
+  int32 number_of_members = 9;
+  google.protobuf.Timestamp created_at = 10;
 }
 
 message ProjectList {
@@ -83,7 +84,6 @@ message User {
   repeated Commit commits = 13;
   int32 number_of_merge_requests = 14;
   repeated MergeRequest merge_requests = 15;
-  repeated Project projects = 16;
 }
 
 message UserList {

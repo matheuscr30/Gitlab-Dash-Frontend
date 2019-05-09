@@ -3,11 +3,9 @@
     <project-card
       :project="project"
       :loadingFixedIssues="loadingFixedIssues"
-      :loadingMembers="loadingMembers"
       :loadingCommits="loadingCommits"
       :loadingBranches="loadingBranches"
       :fixedIssues="fixedIssues"
-      :members="members"
       :commits="commits"
       :branches="branches"
     ></project-card>
@@ -33,7 +31,6 @@ export default {
   data() {
     return {
       loadingFixedIssues: true,
-      loadingMembers: true,
       loadingCommits: true,
       loadingBranches: true
     }
@@ -41,9 +38,6 @@ export default {
   computed: {
     fixedIssues() {
       return this.$store.getters['projects/projectFixedIssues'][this.project.id]
-    },
-    members() {
-      return this.$store.getters['projects/projectMembers'][this.project.id]
     },
     commits() {
       return this.$store.getters['projects/projectCommits'][this.project.id]
@@ -61,14 +55,6 @@ export default {
         })
     } else {
       this.loadingFixedIssues = false
-    }
-
-    if (typeof this.members === 'undefined') {
-      this.$store.dispatch('projects/loadMembers', this.project.id).then(() => {
-        this.loadingMembers = false
-      })
-    } else {
-      this.loadingMembers = false
     }
 
     if (typeof this.commits === 'undefined') {
