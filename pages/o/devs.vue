@@ -19,13 +19,6 @@
             <v-icon>merge_type</v-icon>
           </v-btn>
         </v-btn-toggle>
-
-        <v-switch
-          v-model="showAdmins"
-          label="Show Admins"
-          color="indigo darken-3"
-          hide-details
-        ></v-switch>
       </v-flex>
 
       <div id="timeline--1"></div>
@@ -36,7 +29,6 @@
         :key="user.id"
         :user="user"
         :timelineOption="timelineOption"
-        :showAdmins="showAdmins"
       />
     </v-layout>
   </v-container>
@@ -59,7 +51,6 @@ export default {
   data() {
     return {
       timelineOption: 0,
-      showAdmins: false,
       stopScroll: false
     }
   },
