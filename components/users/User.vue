@@ -1,10 +1,5 @@
 <template>
-  <v-flex
-    v-show="!user.isAdmin || showAdmins"
-    xs12
-    class="mt-5"
-    :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }"
-  >
+  <v-flex xs12 class="mt-5" :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }">
     <div class="timeline"></div>
 
     <v-layout row wrap class="timeline-item">
@@ -226,10 +221,6 @@ export default {
     timelineOption: {
       default: undefined,
       type: Number
-    },
-    showAdmins: {
-      default: undefined,
-      type: Boolean
     }
   }
 }
