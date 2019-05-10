@@ -79,10 +79,12 @@
                     <a :href="commit.issue.webUrl" target="_blank">
                       {{ commit.issue.title }}
                     </a>
-                    : &nbsp;
+                    :
                   </span>
 
-                  {{ commit.title | cleanTitle(commit.issue) }}
+                  <span class="timeline-item--title">
+                    {{ commit.title | cleanTitle(commit.issue) }}
+                  </span>
                 </span>
 
                 <span class="grey--text pt-3">
