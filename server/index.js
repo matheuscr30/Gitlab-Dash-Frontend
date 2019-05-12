@@ -21,6 +21,14 @@ async function start() {
     await nuxt.ready()
   }
 
+  app.get('*', function(req, res, next) {
+    if (!config.dev && req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect('https://' + req.headers.host + req.url)
+    } else {
+      next()
+    }
+  })
+
   // Give nuxt middleware to express
   app.use(nuxt.render)
 

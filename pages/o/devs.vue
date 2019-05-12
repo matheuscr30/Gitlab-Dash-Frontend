@@ -4,13 +4,18 @@
       <v-flex xs12 :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }">
         <span class="subheading mr-2">Timeline Options</span>
         <v-btn-toggle v-model="timelineOption" mandatory>
+          <v-btn flat color="deep-orange darken-1">
+            <span>All</span>
+            <v-icon>style</v-icon>
+          </v-btn>
+
           <v-btn flat color="yellow darken-2">
             <span>Commit</span>
             <v-icon>code</v-icon>
           </v-btn>
 
           <v-btn flat color="red">
-            <span>Fixed Issue</span>
+            <span>Issue</span>
             <v-icon>priority_high</v-icon>
           </v-btn>
 
@@ -56,11 +61,19 @@ export default {
   computed: {
     users() {
       let usersAux = [...this.$store.getters['users/users']]
+
       if (this.timelineOption === 0) {
+        usersAux = usersAux.sort((a, b) =>
+          a.numberOfCommits + a.numberOfIssues + a.numberOfMergeRequests >
+          b.numberOfCommits + b.numberOfIssues + b.numberOfMergeRequests
+            ? -1
+            : 1
+        )
+      } else if (this.timelineOption === 1) {
         usersAux = usersAux.sort((a, b) =>
           a.numberOfCommits > b.numberOfCommits ? -1 : 1
         )
-      } else if (this.timelineOption === 1) {
+      } else if (this.timelineOption === 2) {
         usersAux = usersAux.sort((a, b) =>
           a.numberOfIssues > b.numberOfIssues ? -1 : 1
         )
@@ -84,11 +97,13 @@ export default {
   async created() {
     this.$emit('changedTitle', 'Devs')
 
-    if (this.$route.query.timeline_option === 'commit') this.timelineOption = 0
-    else if (this.$route.query.timeline_option === 'fixed_issue')
+    if (this.$route.query.timeline_option === 'all') this.timelineOption = 0
+    else if (this.$route.query.timeline_option === 'commit')
       this.timelineOption = 1
-    else if (this.$route.query.timeline_option === 'merge_request')
+    else if (this.$route.query.timeline_option === 'issue')
       this.timelineOption = 2
+    else if (this.$route.query.timeline_option === 'merge_request')
+      this.timelineOption = 3
 
     if (this.users.length === 0) await this.$store.dispatch('users/loadUsers')
   },
