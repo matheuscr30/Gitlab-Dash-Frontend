@@ -11,7 +11,8 @@ Vue.use(Vuetify, {
     warning: colors.amber.base,
     error: colors.deepOrange.accent4,
     success: colors.green.darken1,
-    background: colors.blueGrey.lighten5
+    background: colors.blueGrey.lighten5,
+    greyDarken4: colors.grey.darken4
   },
   options: {
     customProperties: true

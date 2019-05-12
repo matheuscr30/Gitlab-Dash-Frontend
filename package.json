@@ -1,7 +1,7 @@
 {
   "name": "gitlab-dash-frontend",
   "version": "1.0.0",
-  "description": "My impressive Nuxt.js project",
+  "description": "A Gitlab Dashboard for SSYS",
   "author": "Matheus Cunha Reis",
   "private": true,
   "scripts": {
