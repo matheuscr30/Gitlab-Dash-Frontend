@@ -64,7 +64,7 @@
         </span>
 
         <span class="grey--text pt-3">
-          {{ new Date(action.closedAt.seconds * 1000) | moment }}
+          {{ new Date(action.createdAt.seconds * 1000) | moment }}
         </span>
       </v-flex>
 

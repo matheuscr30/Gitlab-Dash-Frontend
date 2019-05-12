@@ -7,7 +7,7 @@
         <v-layout row wrap>
           <v-spacer></v-spacer>
           <user-action
-            v-for="action in allActions.slice(0, 5)"
+            v-for="action in allActions"
             :key="action.id + action.title"
             :action="action"
             :actionType="calculateType(action)"
@@ -112,11 +112,12 @@ export default {
   },
   computed: {
     allActions() {
-      const auxActions = this.user.commitsList.concat(
-        this.user.issuesList,
-        this.user.mergeRequestsList
-      )
-      return auxActions.sort(this.sortAllActions)
+      const auxActions = this.user.commitsList
+        .concat(this.user.issuesList, this.user.mergeRequestsList)
+        .sort(this.sortAllActions)
+        .slice(0, 5)
+        .reverse()
+      return auxActions
     }
   },
   methods: {
@@ -131,7 +132,7 @@ export default {
     },
     getDateByType(action) {
       if ('iid' in action) {
-        return action.closedAt
+        return action.createdAt
       } else if ('committedDate' in action) {
         return action.committedDate
       } else {
@@ -139,10 +140,9 @@ export default {
       }
     },
     sortAllActions(a, b) {
-      const dateA = new Date(this.getDateByType(a).seconds * 1000)
-      const dateB = new Date(this.getDateByType(b).seconds * 1000)
-
-      return dateA < dateB ? -1 : 1
+      return this.getDateByType(a).seconds > this.getDateByType(b).seconds
+        ? -1
+        : 1
     }
   }
 }

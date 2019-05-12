@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      timelineOption: 1,
+      timelineOption: 0,
       stopScroll: false
     }
   },
