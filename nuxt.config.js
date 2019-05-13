@@ -24,7 +24,7 @@ module.exports = {
       { hid: 'author', name: 'author', content: 'Matheus Cunha Reis' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/ssys_logo.png' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/logo-ssys.svg' },
       {
         rel: 'stylesheet',
         href:

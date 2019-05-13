@@ -8,6 +8,10 @@
       </div>
 
       <span>
+        <v-avatar v-if="all" :color="getColorType()" size="20">
+          <v-icon dark size="15">{{ getIconType() }}</v-icon>
+        </v-avatar>
+
         <v-avatar
           v-if="
             action.project.avatarUrl !== '' &&
@@ -44,7 +48,7 @@
           </span>
         </span>
 
-        <span class="grey--text pt-3">
+        <span class="grey--text pt-3 timeline-item--title">
           {{ new Date(action.committedDate.seconds * 1000) | moment }}
         </span>
       </v-flex>
@@ -56,14 +60,15 @@
             target="_blank"
             class="linkIssue font-weight-bold"
           >
-            #{{ action.iid }}
+            ({{ action.state | capitalizeFirstLetter }})
           </a>
-          <span class="pl-1">
+
+          <span class="pl-1 timeline-item--title">
             {{ action.title }}
           </span>
         </span>
 
-        <span class="grey--text pt-3">
+        <span class="grey--text pt-3 timeline-item--title">
           {{ new Date(action.createdAt.seconds * 1000) | moment }}
         </span>
       </v-flex>
@@ -81,7 +86,7 @@
           </span>
         </span>
 
-        <span class="grey--text pt-3">
+        <span class="grey--text pt-3 timeline-item--title">
           {{ new Date(action.createdAt.seconds * 1000) | moment }}
         </span>
       </v-flex>
@@ -108,6 +113,9 @@ export default {
       } else {
         return title
       }
+    },
+    capitalizeFirstLetter(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1)
     }
   },
   props: {
@@ -120,6 +128,10 @@ export default {
     actionType: {
       default: undefined,
       type: String
+    },
+    all: {
+      default: undefined,
+      type: Boolean
     }
   },
   computed: {
@@ -138,6 +150,15 @@ export default {
         return 'red'
       } else if (this.actionType === 'mergeRequest') {
         return 'purple darken-1'
+      }
+    },
+    getIconType() {
+      if (this.actionType === 'commit') {
+        return 'code'
+      } else if (this.actionType === 'issue') {
+        return 'priority_high'
+      } else if (this.actionType === 'mergeRequest') {
+        return 'merge_type'
       }
     }
   }
@@ -161,11 +182,12 @@ export default {
 
 .linkIssue {
   color: var(--v-greyDarken2-base) !important;
-  font-size: 13.8px !important;
+  font-size: 13px !important;
+  text-decoration: none;
 }
 
 .timeline-item--title {
-  font-size: 13px !important;
+  font-size: 12.7px !important;
   line-height: 1.7;
 }
 </style>
