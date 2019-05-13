@@ -3,7 +3,12 @@
     <v-layout row wrap class="mb-4">
       <v-flex xs12 :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }">
         <span class="subheading mr-2">Timeline Options</span>
-        <v-btn-toggle v-model="timelineOption" mandatory>
+        <br v-if="$isMobile" />
+        <v-btn-toggle
+          v-model="timelineOption"
+          mandatory
+          :class="{ verticalBtnToggle: $isMobile }"
+        >
           <v-btn flat color="deep-orange darken-1">
             <span>All</span>
             <v-icon>style</v-icon>
@@ -137,4 +142,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.verticalBtnToggle {
+  flex-direction: column;
+}
+</style>
