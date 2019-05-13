@@ -10,6 +10,7 @@
             v-for="action in allActions"
             :key="action.id + action.title"
             :action="action"
+            :all="true"
             :actionType="calculateType(action)"
           >
           </user-action>

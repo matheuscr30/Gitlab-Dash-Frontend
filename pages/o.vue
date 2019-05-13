@@ -13,8 +13,8 @@
       <v-img src="/sidebar_image.jpg" height="100%">
         <v-layout id="layoutDrawer" class="fill-height" column>
           <v-list-tile avatar class="pa-2">
-            <v-list-tile-avatar>
-              <v-img src="/ssys_logo.png" height="34" contain />
+            <v-list-tile-avatar tile>
+              <v-img src="/logo-ssys.svg" height="34" contain />
             </v-list-tile-avatar>
             <v-list-tile-title class="title white--text">
               SSYS
