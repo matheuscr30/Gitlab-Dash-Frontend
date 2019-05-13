@@ -21,7 +21,7 @@
         <v-layout row wrap>
           <v-spacer></v-spacer>
           <user-action
-            v-for="commit in user.commitsList.slice(0, 5)"
+            v-for="commit in user.commitsList.slice(0, sliceQuantity)"
             :key="commit.id"
             :action="commit"
             actionType="commit"
@@ -34,7 +34,7 @@
         <v-layout row wrap>
           <v-spacer></v-spacer>
           <user-action
-            v-for="issue in user.issuesList.slice(0, 5)"
+            v-for="issue in user.issuesList.slice(0, sliceQuantity)"
             :key="issue.id"
             :action="issue"
             actionType="issue"
@@ -47,7 +47,10 @@
         <v-layout row wrap>
           <v-spacer></v-spacer>
           <user-action
-            v-for="mergeRequest in user.mergeRequestsList.slice(0, 5)"
+            v-for="mergeRequest in user.mergeRequestsList.slice(
+              0,
+              sliceQuantity
+            )"
             :key="mergeRequest.id"
             :action="mergeRequest"
             actionType="mergeRequest"
@@ -111,14 +114,35 @@ export default {
       type: Number
     }
   },
+  data() {
+    return {
+      sliceQuantity: 5
+    }
+  },
   computed: {
     allActions() {
       const auxActions = this.user.commitsList
         .concat(this.user.issuesList, this.user.mergeRequestsList)
         .sort(this.sortAllActions)
-        .slice(0, 5)
+        .slice(0, this.sliceQuantity)
         .reverse()
       return auxActions
+    }
+  },
+  watch: {
+    $isMobile() {
+      if (this.$isMobile) {
+        this.sliceQuantity = 3
+      } else {
+        this.sliceQuantity = 5
+      }
+    }
+  },
+  created() {
+    if (this.$isMobile) {
+      this.sliceQuantity = 3
+    } else {
+      this.sliceQuantity = 5
     }
   },
   methods: {

@@ -1,5 +1,8 @@
 <template>
-  <v-flex class="timeline-text xs-timeline-item">
+  <v-flex
+    class="timeline-text"
+    :class="{ 'xs-timeline-item': $isMobile, 'lg-timeline-item': !$isMobile }"
+  >
     <v-layout column wrap align-center>
       <div v-if="$isFullscreen" class="fullscreen-margin"></div>
 
@@ -8,7 +11,12 @@
       </div>
 
       <span>
-        <v-avatar v-if="all" :color="getColorType()" size="20">
+        <v-avatar
+          v-if="all"
+          :color="getColorType()"
+          size="20"
+          class="avatarTypeAll"
+        >
           <v-icon dark size="15">{{ getIconType() }}</v-icon>
         </v-avatar>
 
@@ -166,6 +174,10 @@ export default {
 </script>
 
 <style lang="scss">
+.avatarTypeAll {
+  right: -3px;
+}
+
 .timeline-text {
   margin-top: -38px !important;
 }
@@ -175,6 +187,12 @@ export default {
 }
 
 .xs-timeline-item {
+  flex-basis: 33%;
+  flex-grow: 0;
+  max-width: 33%;
+}
+
+.lg-timeline-item {
   flex-basis: 20%;
   flex-grow: 0;
   max-width: 20%;
