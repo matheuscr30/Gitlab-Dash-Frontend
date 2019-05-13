@@ -107,6 +107,10 @@ export default {
       this.timelineOption = 3
 
     if (this.users.length === 0) await this.$store.dispatch('users/loadUsers')
+
+    setInterval(async () => {
+      await this.$store.dispatch('users/loadUsers')
+    }, 60000)
   },
   methods: {
     startScroll() {
