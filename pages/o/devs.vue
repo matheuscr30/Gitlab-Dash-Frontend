@@ -3,29 +3,24 @@
     <v-layout row wrap class="mb-4">
       <v-flex xs12 :class="{ 'ml-2': $isMobile, 'ml-4': !$isMobile }">
         <span class="subheading mr-2">Timeline Options</span>
-        <br v-if="$isMobile" />
-        <v-btn-toggle
-          v-model="timelineOption"
-          mandatory
-          :class="{ verticalBtnToggle: $isMobile }"
-        >
+        <v-btn-toggle v-model="timelineOption" mandatory>
           <v-btn flat color="deep-orange darken-1">
-            <span>All</span>
+            <span v-if="!$isMobile">All</span>
             <v-icon>style</v-icon>
           </v-btn>
 
           <v-btn flat color="yellow darken-2">
-            <span>Commit</span>
+            <span v-if="!$isMobile">Commit</span>
             <v-icon>code</v-icon>
           </v-btn>
 
           <v-btn flat color="red">
-            <span>Issue</span>
+            <span v-if="!$isMobile">Issue</span>
             <v-icon>priority_high</v-icon>
           </v-btn>
 
           <v-btn flat color="purple darken-1">
-            <span>Merge Request</span>
+            <span v-if="!$isMobile">Merge Request</span>
             <v-icon>merge_type</v-icon>
           </v-btn>
         </v-btn-toggle>
@@ -142,8 +137,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.verticalBtnToggle {
-  flex-direction: column;
-}
-</style>
+<style lang="scss"></style>
