@@ -82,6 +82,7 @@ export default {
           a.numberOfMergeRequests > b.numberOfMergeRequests ? -1 : 1
         )
       }
+
       return usersAux
     }
   },
