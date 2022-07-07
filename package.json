@@ -19,7 +19,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "google-protobuf": "^3.6.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nuxt": "^2.4.0",
     "qs": "^6.7.0",
     "vue-chartist": "^2.2.0",
