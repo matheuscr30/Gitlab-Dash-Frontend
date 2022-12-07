@@ -21,7 +21,7 @@
     "google-protobuf": "^3.6.1",
     "moment": "^2.24.0",
     "nuxt": "^2.4.0",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "vue-chartist": "^2.2.0",
     "vue-fullscreen": "^2.1.5",
     "vuetify": "^1.5.5",
